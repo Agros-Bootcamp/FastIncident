@@ -15,7 +15,7 @@ const qs = async (param, item) => {
 export const verify = async (req, res, next) => {
     const { first_name_user, email_user } = req.body
 
-    const val = [await qs(first_name_user, 'name'), await qs(email_user, 'email')]
+    const val = [await qs(first_name_user, 'first_name_user'), await qs(email_user, 'email_user')]
 
     switch (true) {
         case (val[0] && val[1]):
