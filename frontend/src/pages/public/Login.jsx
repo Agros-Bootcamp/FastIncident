@@ -1,4 +1,5 @@
 import { useReducer } from "react"
+import { Link } from "react-router-dom"
 
 const Login = () => {
 
@@ -27,6 +28,7 @@ const Login = () => {
             <input onChange={e=>handleUser(e)} name="email_user" placeholder="Email" />
             <input onChange={e=>handleUser(e)} name="password_user" placeholder="Contraseña" />
             <button onClick={()=>console.log(user)} type="submit" >Iniciar sesion</button>
+            <Link to='/recovery'>Me olvide mi contraseña</Link>
         </form>
     </div>
   )
