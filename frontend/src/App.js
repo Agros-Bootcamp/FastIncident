@@ -6,12 +6,12 @@ import { AuthProvider } from "./context/AuthContext"
 const App = () => {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
-        <AuthProvider>
           <Route path="" element={<Home />} />
           <Route path="/login" element={<Login />} />
-        </AuthProvider>
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

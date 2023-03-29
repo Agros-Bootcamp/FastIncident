@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { useAxios } from "../hooks/useAxios";
 
 export const AuthContext = createContext()
 
