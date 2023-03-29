@@ -31,7 +31,8 @@ export const tb_user = sqlDB.define('tb_user', {
     },
 
     balance_token: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 })
 
@@ -74,6 +75,9 @@ export const tb_task = sqlDB.define('tb_task', {
     },
     priority_task: {
         type: DataTypes.STRING
+    },
+    development_HH: {
+        type: DataTypes.INTEGER
     },
     reward_task: {
         type: DataTypes.INTEGER
@@ -127,58 +131,66 @@ export const tb_type_incident = sqlDB.define('tb_type_incident', {
     }
 })
 
-tb_user.hasMany(tb_task, {
-    foreignKey: {
-        name: 'fk_id_user',
-        allowNull: false
-    }
-});
-
 tb_rol_user.hasMany(tb_user, {
     foreignKey: {
         name: 'fk_id_rol_user',
         allowNull: false
-    }
+    },
+    sourceKey: 'pk_id_rol_user'
 });
 
 tb_user.belongsTo(tb_rol_user, {
     foreignKey: {
         name: 'fk_id_rol_user',
         allowNull: false
-    }
+    },
+    targetId: 'pk_id_rol_user'
+});
+
+tb_user.hasMany(tb_task, {
+    foreignKey: {
+        name: 'fk_id_user',
+        allowNull: false
+    },
+    sourceKey: 'pk_id_user'
 });
 
 tb_task.belongsTo(tb_user, {
     foreignKey: {
         name: 'fk_id_user',
         allowNull: false
-    }
+    },
+    targetId: 'pk_id_user'
 });
 
 tb_task.hasMany(tb_incident, {
     foreignKey: {
         name: 'fk_id_task',
         allowNull: false
-    }
+    },
+    sourceKey: 'pk_id_task'
 });
 
 tb_incident.belongsTo(tb_task, {
     foreignKey: {
         name: 'fk_id_task',
         allowNull: false
-    }
+    },
+    targetId: 'pk_id_task'
 });
 
 tb_type_incident.hasMany(tb_incident, {
     foreignKey: {
         name: 'fk_id_type_incident',
         allowNull: false
-    }
+    },
+    sourceKey: 'pk_id_type_incident'
 });
 
 tb_incident.belongsTo(tb_type_incident, {
     foreignKey: {
         name: 'fk_id_type_incident',
         allowNull: false
-    }
+    },
+    targetId: 'pk_id_type_incident'
 });
