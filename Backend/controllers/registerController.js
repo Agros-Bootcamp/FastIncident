@@ -3,13 +3,14 @@ import bcrypt from 'bcrypt'
 
 export const register = async (req, res) => {
     console.log('try3')
-    const { name, email, password } = req.body
-    const hashedPWD = await bcrypt.hash(password, 10)
+    const { first_name, last_name, email_user, password_user } = req.body
+    const hashedPWD = await bcrypt.hash(password_user, 10)
     try {
         const result = await tb_user.create({
-            name,
-            email,
-            password: hashedPWD
+            first_name,
+            last_name,
+            email_user,
+            password_user: hashedPWD
         })
 
         result && res.json(result)
