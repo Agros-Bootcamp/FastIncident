@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sqlDB from '../database/database.js'
 
-//Tabla usuarios
+//Tabla usuarios: Estos contaran con un rol para que pueda acceder a las paginas segun los permisos que tenga
 export const tb_user = sqlDB.define('tb_user', {
     pk_id_user: {
         type: DataTypes.UUID,
@@ -35,6 +35,7 @@ export const tb_user = sqlDB.define('tb_user', {
     }
 })
 
+//Tabla de rol usuario
 export const tb_rol_user = sqlDB.define('tb_rol_user', {
     pk_id_rol_user: {
         type: DataTypes.UUID,
@@ -49,8 +50,7 @@ export const tb_rol_user = sqlDB.define('tb_rol_user', {
     }
 })
 
-
-
+//Tabla de tareas
 export const tb_task = sqlDB.define('tb_task', {
     pk_id_task: {
         type: DataTypes.UUID,
@@ -83,9 +83,7 @@ export const tb_task = sqlDB.define('tb_task', {
     }
 })
 
-
-
-
+//Tabla de incidentes
 export const tb_incident = sqlDB.define('tb_incident', {
     pk_id_incident: {
         type: DataTypes.UUID,
