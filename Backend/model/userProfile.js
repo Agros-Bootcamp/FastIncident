@@ -76,6 +76,9 @@ export const tb_task = sqlDB.define('tb_task', {
     priority_task: {
         type: DataTypes.STRING
     },
+    development_HH: {
+        type: DataTypes.INTEGER
+    },
     reward_task: {
         type: DataTypes.INTEGER
     },
