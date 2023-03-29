@@ -1,18 +1,24 @@
 import { DataTypes } from 'sequelize'
 import sqlDB from '../database/database.js'
 
-export const userProfile = sqlDB.define('user', {
-    id: {
+//Tabla usuarios
+export const tb_user = sqlDB.define('tb_user', {
+    pk_id_user: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    name: {
+    first_name_user: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
     },
-    email: {
+    last_name_user: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+    },
+    email_user: {
         type: DataTypes.STRING,
         validate: {
             isEmail: true
@@ -20,90 +26,161 @@ export const userProfile = sqlDB.define('user', {
         unique: true,
         allowNull: false
     },
-    rol : {
-        type: DataTypes.STRING
-    }
-    ,password: {
+    password_user: {
         type: DataTypes.STRING
     },
-    //Tareas relacionadas con el modelo de tareas
-    tareas : {
-        type:DataTypes.ARRAY
-    },
-    incidencias : {
-        type: DataTypes.ARRAY
-    },
-    //
-    balanceToken : {
-        type : DataTypes.INTEGER
+
+    balance_token: {
+        type: DataTypes.INTEGER
     }
 })
 
-export const Tareas = sqlDB.define('tareas', {
-    id: {
+export const tb_rol_user = sqlDB.define('tb_rol_user', {
+    pk_id_rol_user: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    titulo : {
+    title_rol_user: {
         type: DataTypes.STRING
     },
-    descripcion : {
-        type : DataTypes.STRING
-    },
-    status : {
+    description_rol_user: {
         type: DataTypes.STRING
-    },
-    fechaDeInicio : {
-        type : DataTypes.DATE
-    },
-    fechaLimite : {
-        type : DataTypes.DATE
-    },
-    prioridad : {
-        type: DataTypes.STRING
-    },
-    recompensa : {
-        type : DataTypes.INTEGER
-    },
-    limiteIncidencias : {
-        type : DataTypes.INTEGER
     }
 })
 
-export const incident = sqlDB.define('incidents', {
-    id : {
+
+
+export const tb_task = sqlDB.define('tb_task', {
+    pk_id_task: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    descripcion : {
+    title_task: {
         type: DataTypes.STRING
     },
-    fechaInicioIncidencia : {
-        type : DataTypes.DATE
+    description_task: {
+        type: DataTypes.STRING
     },
-    fechaResuelta : {
+    status_task: {
+        type: DataTypes.STRING
+    },
+    start_date_task: {
         type: DataTypes.DATE
     },
-    resulta : {
-        type : DataTypes.BOOLEAN
+    end_date_task: {
+        type: DataTypes.DATE
+    },
+    priority_task: {
+        type: DataTypes.STRING
+    },
+    reward_task: {
+        type: DataTypes.INTEGER
+    },
+    limit_incidents: {
+        type: DataTypes.INTEGER
     }
 })
 
-export const tipoIncidencia = sqlDB.define('tipoIncidencia', {
-    id : {
+
+
+
+export const tb_incident = sqlDB.define('tb_incident', {
+    pk_id_incident: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    tipo: {
-        type : DataTypes.STRING
+    description_incident: {
+        type: DataTypes.STRING
     },
-    penalidad: {
-        type : DataTypes.INTEGER
+    start_date_incident: {
+        type: DataTypes.DATE
     },
-    tokensDevueltos : {
-        type : DataTypes.INTEGER
+    end_date_incident: {
+        type: DataTypes.DATE
+    },
+    status_incident: {
+        type: DataTypes.BOOLEAN
     }
 })
+
+
+
+
+export const tb_type_incident = sqlDB.define('tb_type_incident', {
+    pk_id_type_incident: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+    },
+    title_type_incident: {
+        type: DataTypes.STRING
+    },
+    description_type_incident: {
+        type: DataTypes.STRING
+    },
+    penalty_incident: {
+        type: DataTypes.INTEGER
+    },
+    returned_tokens: {
+        type: DataTypes.INTEGER
+    }
+})
+
+tb_user.hasMany(tb_task, {
+    foreignKey: {
+        name: 'fk_id_user',
+        allowNull: false
+    }
+});
+
+tb_rol_user.hasMany(tb_user, {
+    foreignKey: {
+        name: 'fk_id_rol_user',
+        allowNull: false
+    }
+});
+
+tb_user.belongsTo(tb_rol_user, {
+    foreignKey: {
+        name: 'fk_id_rol_user',
+        allowNull: false
+    }
+});
+
+tb_task.belongsTo(tb_user, {
+    foreignKey: {
+        name: 'fk_id_user',
+        allowNull: false
+    }
+});
+
+tb_task.hasMany(tb_incident, {
+    foreignKey: {
+        name: 'fk_id_task',
+        allowNull: false
+    }
+});
+
+tb_incident.belongsTo(tb_task, {
+    foreignKey: {
+        name: 'fk_id_task',
+        allowNull: false
+    }
+});
+
+tb_type_incident.hasMany(tb_incident, {
+    foreignKey: {
+        name: 'fk_id_type_incident',
+        allowNull: false
+    }
+});
+
+tb_incident.belongsTo(tb_type_incident, {
+    foreignKey: {
+        name: 'fk_id_type_incident',
+        allowNull: false
+    }
+});

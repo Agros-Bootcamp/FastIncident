@@ -1,12 +1,12 @@
-import {userProfile} from '../model/userProfile.js'
+import { tb_user } from '../model/userProfile.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const qsUser = async (req, res) => {
-    const {email} = req.body
-    const user = await userProfile.findOne({
+    const { email_user } = req.body
+    const user = await tb_user.findOne({
         where: {
-            email
+            email_user
         }
     })
 
@@ -14,22 +14,22 @@ const qsUser = async (req, res) => {
 }
 
 export const authTokens = async (req, res) => {
-    const {password} = req.body
+    const { password_user } = req.body
 
     const user = await qsUser(req, res)
     if (!user) return res.json('no hay')
-    
-    const match = await bcrypt.compare(password, user.password)
+
+    const match = await bcrypt.compare(password_user, user.password)
 
     if (match) {
         const accessToken = jwt.sign({
-            "UserInfo" : {
-                "username" : user.name
+            "UserInfo": {
+                "username": user.first_name_user
             }
-        }, process.env.ACCESS_TOKEN, 
-        { expiresIn: '15s' })
+        }, process.env.ACCESS_TOKEN,
+            { expiresIn: '15s' })
         const refreshToken = jwt.sign(
-            {'username':user.name},
+            { 'username': user.first_name_user },
             process.env.REFRESH_TOKEN,
             { expiresIn: '30m' }
         )
@@ -45,6 +45,6 @@ export const authTokens = async (req, res) => {
     //             "username": user.name,
     //         }
     //     })
-        
+
     // }
 }
