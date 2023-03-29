@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { register } from "../controllers/registerController.js";
-import {verify} from '../middleware/verifyUsers.js'
+import { listUsers } from "../controllers/userController.js";
+import { verify } from '../middleware/verifyUsers.js'
 
 export const registerRouter = Router()
 
-registerRouter.post('/register',verify,register)
+registerRouter.post('/registerprueba', verify, register)
+registerRouter.get('/usersprueba', verify, listUsers);
