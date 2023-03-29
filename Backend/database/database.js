@@ -1,6 +1,6 @@
-import  Sequelize  from "sequelize";
+import Sequelize from "sequelize";
 
-const sqlDB = new Sequelize("express2","postgres",process.env.PG_PASSWORD,{
+const sqlDB = new Sequelize("express2", "postgres", "admin", {
     host: 'localhost',
     dialect: 'postgres'
 })
