@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sqlDB from '../database/database.js'
 
+//Tabla usuarios
 export const tb_user = sqlDB.define('tb_user', {
     pk_id_user: {
         type: DataTypes.UUID,
