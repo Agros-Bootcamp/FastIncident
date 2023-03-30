@@ -3,6 +3,7 @@ import { registerRouter } from './routes/register.js'
 import { userRouter } from './routes/user.js'
 import { rolRoute } from './routes/rol.js'
 import { routerLogin } from './routes/login.js'
+import { typeIncidentRoute } from './routes/typeIncident.js'
 import { config } from 'dotenv'
 import cors from 'cors'
 
@@ -17,3 +18,4 @@ app.use(routerLogin)
 app.use(registerRouter)
 app.use(userRouter)
 app.use(rolRoute)
+app.use(typeIncidentRoute)
