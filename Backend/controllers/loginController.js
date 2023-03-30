@@ -24,7 +24,10 @@ export const authTokens = async (req, res) => {
     if (match) {
         const accessToken = jwt.sign({
             "UserInfo": {
-                "username": user.first_name_user
+                "first_name_user": user.first_name_user,
+                "last_name_user": user.last_name_user,
+                "balance_token":user.balance_token,
+                "pk_id_user":user.pk_id_user
             }
         }, process.env.ACCESS_TOKEN,
             { expiresIn: '15s' })

@@ -65,7 +65,8 @@ export const tb_task = sqlDB.define('tb_task', {
         type: DataTypes.STRING
     },
     status_task: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: 'open'
     },
     start_date_task: {
         type: DataTypes.DATE
