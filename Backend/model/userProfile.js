@@ -30,6 +30,12 @@ export const tb_user = sqlDB.define('tb_user', {
         type: DataTypes.STRING
     },
 
+    //Fecha del último inicio de sesion
+    last_date_login: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+
     balance_token: {
         type: DataTypes.INTEGER,
         defaultValue: 0
@@ -94,6 +100,9 @@ export const tb_incident = sqlDB.define('tb_incident', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
+    title_incident: {
+        type: DataTypes.STRING
+    },
     description_incident: {
         type: DataTypes.STRING
     },
@@ -104,7 +113,7 @@ export const tb_incident = sqlDB.define('tb_incident', {
         type: DataTypes.DATE
     },
     status_incident: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.STRING
     }
 })
 
