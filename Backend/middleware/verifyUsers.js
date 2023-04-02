@@ -19,7 +19,7 @@ export const verify = async (req, res, next) => {
 
     switch (true) {
         case (val[0] && val[1]):
-            return res.json('Ya existe un usuario con ese email y contraseña')
+            return res.json('Ya existe un usuario con ese nombre y email')
             break
         case (val[0]):
             return res.json('Ya existe un usuario con ese nombre')

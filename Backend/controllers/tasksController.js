@@ -12,7 +12,7 @@ export const create_task = async (req, res) => {
 
 export const read_own_tasks = async (req, res) => {
     
-    const {pk_id_user} = req
+    const {pk_id_user} = req.params
 
     try {
         const result = await tb_task.findAll({
@@ -28,6 +28,8 @@ export const read_own_tasks = async (req, res) => {
 }
 
 export const update_tasks = async (req, res) => {
+
+    const {pk_id_task} =req.params
 
     const { field, payload } = req.body
 
@@ -46,7 +48,7 @@ export const update_tasks = async (req, res) => {
 
 export const delete_tasks = async (req, res) => {
     
-    const pk_id_task = req.params
+    const {pk_id_task} = req.params
     
     try {
         const result = await tb_task.destroy({
