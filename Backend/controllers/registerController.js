@@ -16,6 +16,7 @@ const member_role = async (name) => {
 
 export const register = async (req, res) => {
     const { password_user } = req.body
+
     const hashedPWD = await bcrypt.hash(password_user, 10)
     try {
         const result = await tb_user.create({

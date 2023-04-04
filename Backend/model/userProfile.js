@@ -10,7 +10,6 @@ export const tb_user = sqlDB.define('tb_user', {
     },
     first_name_user: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     last_name_user: {

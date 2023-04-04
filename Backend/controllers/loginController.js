@@ -18,7 +18,7 @@ const qsUser = async (req, res) => {
     }
 }
 
-export const authTokens = async (req, res) => {
+export const authTokens = async (req, res, next) => {
 
     const { password_user } = req.body
 
@@ -51,7 +51,8 @@ export const authTokens = async (req, res) => {
             accessToken,
             refreshToken
         })
-    }
+        next()
+    } else return res.json('No coninciden credenciales')
 }
 
 export const refreshToken = async (req, res) => {
