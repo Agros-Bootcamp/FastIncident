@@ -132,6 +132,28 @@ export const tb_type_incident = sqlDB.define('tb_type_incident', {
     }
 })
 
+export const tb_refresh_tokens = sqlDB.define('tb_refresh_tokens', {
+    refresh_token: {
+        type: DataTypes.STRING
+    }
+})
+
+tb_user.hasMany(tb_refresh_tokens, {
+    foreignKey: {
+        name: 'fk_id_refresh_token',
+        allowNull: false
+    },
+    sourceKey: 'refresh_token'
+})
+
+tb_refresh_tokens.belongsTo(tb_user, {
+    foreignKey: {
+        name: 'fk_id_refresh_token',
+        allowNull: false
+    },
+    targetId: 'pk_id_user'
+})
+
 tb_rol_user.hasMany(tb_user, {
     foreignKey: {
         name: 'fk_id_rol_user',
