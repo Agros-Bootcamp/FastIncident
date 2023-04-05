@@ -11,13 +11,14 @@ const create_default_roles = async (title_rol_user) => {
         }
     })
     if (created_result) return console.log(`Rol de usuario ${title_rol_user} creado`)
-    else return console.log()
 }
 
 const main = async () => {
     try {
         await sqlDB.authenticate()
         await sqlDB.sync({force:false})
+        const roles = ['integrante', 'administrador']
+        roles.map(async (rol)=>create_default_roles(rol))
         app.listen(4000)
         console.log('works')
 
