@@ -44,7 +44,8 @@ export const tb_rol_user = sqlDB.define('tb_rol_user', {
         type: DataTypes.STRING
     },
     description_rol_user: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
 

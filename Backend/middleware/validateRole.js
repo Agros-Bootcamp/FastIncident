@@ -1,39 +1,36 @@
 import { tb_rol_user, tb_user } from "../model/userProfile.js"
 
-const validate_role = async (pk_id_user, title_rol_user) => {
+const qs_role = async (pk_id_user, title_rol_user, res) => {
     try {
 
-        const roles = await tb_rol_user.findAll()
+        const { pk_id_rol_user } = await tb_rol_user.findOne({
+            where: {
+                title_rol_user
+            }
+        })
 
-        const user = await tb_user.findOne({
+        const { fk_id_rol_user } = await tb_user.findOne({
             where: {
                 pk_id_user
             }
         })
 
-        const select_rol = roles.filter(rol=>rol.title_rol_user ==title_rol_user)[0]
+        if (pk_id_rol_user !== fk_id_rol_user) return pk_id_rol_user
 
-        const default_rol = roles.filter(rol => rol.title_rol_user == 'integrante')
-
-        const match = user.fk_id_rol_user == select_rol.pk_id_rol_user
-
-        const result = match?select_rol.pk_id_rol_user:default_rol.pk_id_rol_user
-
-        return result
+        else return null
 
     } catch (error) {
-        return undefined
+        return res.json('Ocurrio un error')
     }
 }
 
-export const validate_role_middleware = async (req, res, next) => {
-    const { role } =req.params
-    const { pk_id_user } =req.UserInfo.payload
-
-    const result = await validate_role(pk_id_user, role)
-
-    req.role = result
-
-    next()
-
+export const validate_admin = async (req, res, next) => {
+    const { pk_id_user } = req.UserInfo
+    const role = 'administrador'
+    const result = await qs_role(pk_id_user,role, res)
+    if (!result) return res.json('No tiene permisos para acceder a esta funcion')
+    else {
+        req.role = result
+        next()
+    }
 }

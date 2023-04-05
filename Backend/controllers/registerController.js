@@ -22,7 +22,7 @@ export const register = async (req, res) => {
         const result = await tb_user.create({
             ...req.body,
             password_user: hashedPWD,
-            fk_id_rol_user: member_role(req.role)
+            fk_id_rol_user: member_role('integrante')
         })
 
         result && res.json(result)
@@ -33,7 +33,7 @@ export const register = async (req, res) => {
 
 export const register_by_role = async (req, res) => {
     const {password_user} = req.body
-    const {role} =req
+    const {role} =req.params
 
     try {
         const hashedPWD = await bcrypt.hash(password_user, 10)
@@ -41,7 +41,7 @@ export const register_by_role = async (req, res) => {
         const result = await tb_user.create({
             ...req.body,
             password_user:hashedPWD,
-            fk_id_rol_user: role
+            fk_id_rol_user: member_role(role)
         })
 
         result && res.json(result) 
