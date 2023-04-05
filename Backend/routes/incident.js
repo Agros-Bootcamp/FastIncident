@@ -7,3 +7,4 @@ incidentRoute.post('/registerIncident', verify, registerIncident)
 incidentRoute.get('/incidentsall', verify, listIncidents)
 incidentRoute.put('/updateincident/:id', verify, updateIncident)
 incidentRoute.delete('/deleteincident/:id', verify, deleteIncident)
+//Cambio
