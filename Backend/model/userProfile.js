@@ -33,7 +33,8 @@ export const tb_user = sqlDB.define('tb_user', {
     //Fecha del último inicio de sesion
     last_date_login: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
+        defaultValue: DataTypes.NOW
     },
 
     balance_token: {
