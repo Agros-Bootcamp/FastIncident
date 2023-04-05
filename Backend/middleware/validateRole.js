@@ -24,9 +24,9 @@ const qs_role = async (pk_id_user, title_rol_user, res) => {
     }
 }
 
-export const validate_admin = async (req, res, next) => {
+export const validate_access = async (req, res, next) => {
     const { pk_id_user } = req.UserInfo
-    const role = 'administrador'
+    const role = req.path.slice(1)
     const result = await qs_role(pk_id_user,role, res)
     if (!result) return res.json('No tiene permisos para acceder a esta funcion')
     else {
