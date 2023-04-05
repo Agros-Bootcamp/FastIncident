@@ -7,8 +7,8 @@ import { validate_access } from "../middleware/validateRole.js";
 export const registerRouter = Router()
 export const registerByRole = Router()
 
+//Ruta para registrar solo integrantes sin verificacion
 registerRouter.post('/register',verify, register)
-
 
 //Ruta protegida solo para administradores
 registerByRole.post('/register/administrador', verify, verifyJWT, validate_access, register_by_role)
