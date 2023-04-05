@@ -1,5 +1,19 @@
-import { tb_user } from "../model/userProfile.js";
+import { tb_user, tb_rol_user } from "../model/userProfile.js";
 import bcrypt from 'bcrypt'
+
+//Función que devuelve el pk_id_rol_user
+const memberRol = async (name) => {
+    try {
+        const result = await tb_rol_user.findOne({
+            where: {
+                title_rol_user: name
+            }
+        })
+        return result.pk_id_rol_user
+    } catch (error) {
+        res.json(error.message)
+    }
+}
 
 export const registerUser = async (req, res) => {
     const { first_name_user, last_name_user, email_user, password_user, fk_id_rol_user } = req.body
@@ -16,6 +30,25 @@ export const registerUser = async (req, res) => {
         result && res.json(result)
     } catch (error) {
         res.json(error)
+    }
+}
+
+//Función para registrar administradores validando su rol
+//Revisar
+export const registerUserByRole = async (req, res) => {
+    const { password_user } = req.body
+    const { role } = req.params
+
+    try {
+        const hashedPWD = await bcrypt.hash(password_user, 10)
+        const result = await tb_user.create({
+            ...req.body,
+            password_user: hashedPWD,
+            fk_id_rol_user: memberRol(role)
+        })
+        result && res.json(result)
+    } catch (error) {
+        res.json(error.message)
     }
 }
 

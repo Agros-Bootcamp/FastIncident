@@ -4,47 +4,63 @@ import jwt from 'jsonwebtoken'
 
 const qsUser = async (req, res) => {
     const { email_user } = req.body
-    const user = await tb_user.findOne({
-        where: {
-            email_user
-        }
-    })
+    try {
+        const user = await tb_user.findOne({
+            where: {
+                email_user
+            }
+        })
 
-    return user
+        if (user) return user
+        else return res.json('No hay un usuario con ese email')
+    } catch (error) {
+        return null
+    }
 }
 
-export const authTokens = async (req, res) => {
+export const authTokens = async (req, res, next) => {
+
     const { password_user } = req.body
 
+    //Validacion de email de usuario
     const user = await qsUser(req, res)
     if (!user) return res.json('no hay')
 
-    const match = await bcrypt.compare(password_user, user.password)
+    //Validacion de contraseña
+    const match = await bcrypt.compare(password_user, user.password_user)
 
     if (match) {
+
         const accessToken = jwt.sign({
             "UserInfo": {
-                "username": user.first_name_user
+                "first_name_user": user.first_name_user,
+                "last_name_user": user.last_name_user,
+                "balance_token": user.balance_token,
+                "pk_id_user": user.pk_id_user
             }
         }, process.env.ACCESS_TOKEN,
-            { expiresIn: '15s' })
+            { expiresIn: '30m' })
+
         const refreshToken = jwt.sign(
             { 'username': user.first_name_user },
             process.env.REFRESH_TOKEN,
             { expiresIn: '30m' }
         )
+
         res.json({
             accessToken,
             refreshToken
         })
-    }
-    // const match = await bcrypt.compare(password, user.password)
-    // if (match) {
-    //     const accessToken = jwt.sign({
-    //         "UserInfo" : {
-    //             "username": user.name,
-    //         }
-    //     })
+        next()
+    } else return res.json('No coninciden credenciales')
+}
 
-    // }
+export const refreshToken = async (req, res) => {
+    const token = req.headers.authorization || Authorization
+
+    try {
+
+    } catch (error) {
+
+    }
 }
