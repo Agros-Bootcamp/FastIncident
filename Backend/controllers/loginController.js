@@ -57,6 +57,7 @@ export const authTokens = async (req, res, next) => {
 
         const token = createJWT(user)
         
+        //Almacenamiento de RefreshToken en la base de datos
         await tb_refresh_tokens.create({
             refresh_token: token.refreshToken,
             fk_id_refresh_token: user.pk_id_user
