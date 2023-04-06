@@ -17,8 +17,8 @@ const main = async () => {
     try {
         await sqlDB.authenticate()
         await sqlDB.sync({force:false})
-        const roles = ['integrante', 'administrador']
-        roles.map(async (rol)=>create_default_roles(rol))
+        // const roles = ['integrante', 'administrador']
+        // roles.map(async (rol)=>create_default_roles(rol))
         app.listen(4000)
         console.log('works')
 

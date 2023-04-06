@@ -11,4 +11,5 @@ export const registerByRole = Router()
 registerRouter.post('/register',verify, register)
 
 //Ruta protegida solo para administradores
-registerByRole.post('/register/administrador', verify, verifyJWT, validate_access, register_by_role)
+//Path Segunda seccion, Param la ultima seccion :role
+registerByRole.post('/register/administrador/:role', verify, verifyJWT, validate_access, register_by_role)

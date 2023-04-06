@@ -134,6 +134,11 @@ export const tb_type_incident = sqlDB.define('tb_type_incident', {
 })
 
 export const tb_refresh_tokens = sqlDB.define('tb_refresh_tokens', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
     refresh_token: {
         type: DataTypes.STRING
     }
@@ -144,7 +149,7 @@ tb_user.hasMany(tb_refresh_tokens, {
         name: 'fk_id_refresh_token',
         allowNull: false
     },
-    sourceKey: 'refresh_token'
+    sourceKey: 'pk_id_user'
 })
 
 tb_refresh_tokens.belongsTo(tb_user, {

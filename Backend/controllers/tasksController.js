@@ -1,8 +1,12 @@
 import { tb_task } from "../model/userProfile";
 
 export const create_task = async (req, res) => {
+    const { pk_id_user } = req.UserInfo
     try {
-        const result = await tb_task.create({...req.body})
+        const result = await tb_task.create({
+            ...req.body,
+            fk_id_user: pk_id_user
+        })
 
         result && res.json(result)
     } catch (error) {
