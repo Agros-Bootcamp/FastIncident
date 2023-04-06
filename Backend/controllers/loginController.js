@@ -2,6 +2,7 @@ import { tb_user } from '../model/userProfile.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+//Modificar el nombre
 const qsUser = async (req, res) => {
     const { email_user } = req.body
     try {
@@ -19,18 +20,14 @@ const qsUser = async (req, res) => {
 }
 
 export const authTokens = async (req, res, next) => {
-
     const { password_user } = req.body
-
     //Validacion de email de usuario
     const user = await qsUser(req, res)
     if (!user) return res.json('no hay')
 
     //Validacion de contraseña
     const match = await bcrypt.compare(password_user, user.password_user)
-
     if (match) {
-
         const accessToken = jwt.sign({
             "UserInfo": {
                 "first_name_user": user.first_name_user,

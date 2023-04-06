@@ -2,11 +2,11 @@ import { tb_user, tb_rol_user } from "../model/userProfile.js";
 import bcrypt from 'bcrypt'
 
 //Función que devuelve el pk_id_rol_user
-const memberRol = async (name) => {
+const searchMemberRole = async (title_rol_user, res) => {
     try {
         const result = await tb_rol_user.findOne({
             where: {
-                title_rol_user: name
+                title_rol_user
             }
         })
         return result.pk_id_rol_user
@@ -39,13 +39,18 @@ export const registerUserByRole = async (req, res) => {
     const { password_user } = req.body
     const { role } = req.params
 
+
+    const fk_id_rol_user = await searchMemberRole(role, res)
+
     try {
         const hashedPWD = await bcrypt.hash(password_user, 10)
+
         const result = await tb_user.create({
             ...req.body,
             password_user: hashedPWD,
-            fk_id_rol_user: memberRol(role)
+            fk_id_rol_user
         })
+
         result && res.json(result)
     } catch (error) {
         res.json(error.message)

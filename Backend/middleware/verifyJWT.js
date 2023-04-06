@@ -13,8 +13,7 @@ export const verifyJWT = (req, res, next) => {
             req.UserInfo = {
                 ...decoded.UserInfo
             }
-            res.json("works")
-
+            next()
         }
     )
 }
