@@ -1,4 +1,4 @@
-import { tb_refresh_tokens, tb_user } from '../model/userProfile.js'
+import { tb_refresh_tokens, tb_user, tb_rol_user } from '../model/userProfile.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -11,7 +11,9 @@ const qsUser = async (req, res) => {
             }
         })
 
-        if (user) return user
+        const role = await tb_rol_user.findByPk(user.pk_id_user)
+
+        if (user && role ) return {...user, title_rol_user: role.title_rol_user}
         else return res.json('No hay un usuario con ese email')
     } catch (error) {
         return null
@@ -25,13 +27,14 @@ const createJWT = (data) => {
             "first_name_user":  data.first_name_user,
             "last_name_user":  data.last_name_user,
             "balance_token": data.balance_token,
-            "pk_id_user": data.pk_id_user
+            "pk_id_user": data.pk_id_user,
+            "title_rol_user": data.title_rol_user
         }
     }, process.env.ACCESS_TOKEN,
         { expiresIn: '30m' })
 
     const refreshToken = jwt.sign(
-        { 'username':  data.first_name_user },
+        { 'pk_id_user':  data.pk_id_user },
         process.env.REFRESH_TOKEN,
         { expiresIn: '30m' }
     )
