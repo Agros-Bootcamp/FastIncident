@@ -7,7 +7,7 @@ Además, es importante mencionar que Fastincident es un proyecto diseñado para 
 El proyecto esta dividido en dos partes el Backend y el Frontend, para poder desplegar tu proyecto en tu entorno local sigue los siguientes pasos.
 
 ## Backend
-1. Estar dentro del directorio Backend e intalar las dependencias con el siguiente comando:
+1. Estar dentro del directorio Backend e instalar las dependencias con el siguiente comando:
 ````
 npm install
 ````
@@ -35,11 +35,13 @@ const main = async () => {
 ```
 4. Ejecutar la aplicacion 
 
--> Comando
-
-5. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
 ````
-npm start
+npm run dev
+````
+
+5. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 3):
+````
+npm run dev
 ````
 6. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
