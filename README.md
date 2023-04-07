@@ -33,15 +33,15 @@ const main = async () => {
     }
 }
 ```
-3. Ejecutar la aplicacion 
+4. Ejecutar la aplicacion 
 
 -> Comando
 
-4. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
+5. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
 ````
 npm start
 ````
-5. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
+6. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
     ### CRUD para Usuario
       #### Registrar Usuario sin privilegios (Create)
