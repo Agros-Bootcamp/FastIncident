@@ -217,32 +217,32 @@ npm start
 
       ##### JSON Body para crear Incidente
 
-          {
-              "title_incident": "Incidencia de prueba 2",
-              "description_incident": "Esta es una incidencia de prueba 2",
-              "start_date_incident": "2023-04-01 10:00:00.00",
-              "end_date_incident": "2023-04-02 12:00:00.00",
-              "status_incident": 1,
-              "fk_id_task": "67570953-f3db-4777-977a-0379db7927cf",
-              "fk_id_type_incident": "6ea54739-847d-48a9-92fa-d122e1473252"
-          }
+        {
+            "title_incident": "Incidencia de prueba 2",
+            "description_incident": "Esta es una incidencia de prueba 2",
+            "start_date_incident": "2023-04-01 10:00:00.00",
+            "end_date_incident": "2023-04-02 12:00:00.00",
+            "status_incident": 1,
+            "fk_id_task": "67570953-f3db-4777-977a-0379db7927cf",
+            "fk_id_type_incident": "6ea54739-847d-48a9-92fa-d122e1473252"
+        }
 
       #### Listar los Incidentes (Read): 
 
-          http://localhost:4000/incidentsall
+        http://localhost:4000/incidentsall
         
       #### Actualizar Incidente (Update): Recordar que se le pasa el pk_id_incident como parametro dentro de la URI para poder actualizar un incidente en específico.
 
-          http://localhost:4000/updateincident/5d6a9d3c-ec45-4f18-974d-a95eebd5eaae
+        http://localhost:4000/updateincident/5d6a9d3c-ec45-4f18-974d-a95eebd5eaae
 
       ##### JSON Body para actualizar el tipo de incidente
           
-          {
-              "title_incident": "Incidencia de prueba",
-              "description_incident": "Esta es una incidencia de prueba",
-              "status_incident": "Pendiente"
-          }
+        {
+            "title_incident": "Incidencia de prueba",
+            "description_incident": "Esta es una incidencia de prueba",
+            "status_incident": "Pendiente"
+        }
         
       #### Eliminar Incidente (Delete): Recordar que se le pasa el pk_id_incident como parametro dentro de la URI para poder eliminar un incidente en especifico en específico.
 
-          http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
+        http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
