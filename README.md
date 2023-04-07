@@ -31,7 +31,8 @@ const main = async () => {
     } catch (error) {
         console.log(error)
     }
-}```
+}
+```
 
 3. Ejecutar la aplicacion 
 
