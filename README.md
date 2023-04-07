@@ -19,7 +19,7 @@ REFRESH_TOKEN=jvd9knTYn9WXjD2oDqpr1lV2oR1UkX9o
 PG_PASSWORD=admin(admin es el password)
 
 3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias
-
+```
 const main = async () => {
     try {
         await sqlDB.authenticate()
@@ -28,11 +28,10 @@ const main = async () => {
         // roles.map(async (rol)=>create_default_roles(rol))
         app.listen(4000)
         console.log('works')
-
     } catch (error) {
         console.log(error)
     }
-}
+}```
 
 3. Ejecutar la aplicacion 
 
