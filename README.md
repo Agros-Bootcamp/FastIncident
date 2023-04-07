@@ -52,6 +52,13 @@ npm start
 
         http://localhost:4000/registerUserByRol/Administrador/Administrador
 
+        {
+            "first_name_user":"Pedro1",
+            "last_name_user":"Gonzales",
+            "email_user":"pedro.gonzales192@example.com",
+            "password_user":"1234"
+        }
+
       #### Listar Usuarios (Read)
 
         http://localhost:4000/usersall
