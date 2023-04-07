@@ -4,4 +4,37 @@ Fastincident es un proyecto que se enfoca en la gestión de usuarios, tareas e i
 
 Además, es importante mencionar que Fastincident es un proyecto diseñado para aprender y desarrollar habilidades en el desarrollo fullstack y en la implementación de tecnologías blockchain en aplicaciones web. A través de este proyecto, se busca comprender y aplicar los conceptos fundamentales de ambas tecnologías, incluyendo la creación de API RESTful, la integración de librerías de blockchain, el manejo de bases de datos, y la implementación de interfaces de usuario intuitivas y responsivas. Con este proyecto, se espera desarrollar habilidades prácticas que sean útiles en futuros proyectos de desarrollo web.
 
-El proyecto esta dividido en dos partes el Backend y el Frontend
+El proyecto esta dividido en dos partes el Backend y el Frontend, para poder desplegar tu proyecto en tu entorno local sigue los siguientes pasos.
+
+#Backend
+1. Estar dentro del directorio Backend e intalar las dependencias con el siguiente comando:
+npm install
+
+2. Crear el archivo .env dentro del directorio Backend y completar los siguiente parametros:
+PORT=4000
+ACCESS_TOKEN=8eDg8FGviibFrNPKQ5m29l4lVEDIdAyq
+REFRESH_TOKEN=jvd9knTYn9WXjD2oDqpr1lV2oR1UkX9o
+PG_PASSWORD=admin(admin es el password)
+
+3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias
+const main = async () => {
+    try {
+        await sqlDB.authenticate()
+        await sqlDB.sync({force:false})
+        // const roles = ['integrante', 'administrador']
+        // roles.map(async (rol)=>create_default_roles(rol))
+        app.listen(4000)
+        console.log('works')
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+3. Ejecutar la aplicacion 
+-> Comando
+
+4. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
+npm start
+
+
