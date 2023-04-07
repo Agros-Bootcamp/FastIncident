@@ -18,7 +18,7 @@ export const register = async (req, res) => {
     const { password_user } = req.body
 
     const hashedPWD = await bcrypt.hash(password_user, 10)
-    const fk_id_rol_user = await search_member_role('integrante', res)
+    const fk_id_rol_user = await search_member_role('administrador', res)
     
     try {
         const result = await tb_user.create({
