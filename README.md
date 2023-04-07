@@ -6,17 +6,20 @@ Además, es importante mencionar que Fastincident es un proyecto diseñado para 
 
 El proyecto esta dividido en dos partes el Backend y el Frontend, para poder desplegar tu proyecto en tu entorno local sigue los siguientes pasos.
 
-#Backend
+# Backend
 1. Estar dentro del directorio Backend e intalar las dependencias con el siguiente comando:
+
 npm install
 
 2. Crear el archivo .env dentro del directorio Backend y completar los siguiente parametros:
+
 PORT=4000
 ACCESS_TOKEN=8eDg8FGviibFrNPKQ5m29l4lVEDIdAyq
 REFRESH_TOKEN=jvd9knTYn9WXjD2oDqpr1lV2oR1UkX9o
 PG_PASSWORD=admin(admin es el password)
 
 3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias
+
 const main = async () => {
     try {
         await sqlDB.authenticate()
@@ -32,9 +35,11 @@ const main = async () => {
 }
 
 3. Ejecutar la aplicacion 
+
 -> Comando
 
 4. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
+
 npm start
 
 
