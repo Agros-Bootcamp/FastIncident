@@ -16,8 +16,9 @@ const searchMemberRole = async (title_rol_user, res) => {
 }
 
 export const registerUser = async (req, res) => {
-    const { first_name_user, last_name_user, email_user, password_user, fk_id_rol_user } = req.body
+    const { first_name_user, last_name_user, email_user, password_user } = req.body
     const hashedPWD = await bcrypt.hash(password_user, 10)
+    const fk_id_rol_user = await searchMemberRole('Integrante', res)
     try {
         const result = await tb_user.create({
             first_name_user,

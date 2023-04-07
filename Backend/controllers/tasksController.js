@@ -7,7 +7,6 @@ export const createTask = async (req, res) => {
             ...req.body,
             fk_id_user: pk_id_user
         })
-
         result && res.json(result)
     } catch (error) {
         res.json(error)
