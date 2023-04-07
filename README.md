@@ -208,7 +208,7 @@ npm start
 
         http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
 
-  ### CRUD para registrar Incidencia
+  ### CRUD para Incidencia
       Para las operaciones es necesario validar el accesToken de inicio de sesión, entonces pegamos el accessToken dentro del Bearer Token, para Postman apartado Authorization, para Thunder Client apartado Auth y ya con esto validamos el ingreso:
 
       #### Crear Incidente (Create)
