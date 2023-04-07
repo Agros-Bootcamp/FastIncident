@@ -11,9 +11,20 @@ export const verifyJWT = (req, res, next) => {
         (err, decoded) => {
             if (err) return res.sendStatus(403)
             req.UserInfo = {
-               ...decoded.UserInfo
+                ...decoded.UserInfo
             }
             next()
         }
     )
+}
+
+export const verifyRefreshJWT = (req, res, next) => {
+    const {refreshToken} =req.body
+    jwt.verify(refreshToken,
+        process.env.REFRESH_TOKEN,
+        (err, decoded) => {
+            if (err) return res.sendStatus(403)
+            next()
+        }
+        )
 }
