@@ -46,7 +46,6 @@ npm start
 
     CRUD Usuario
 
-        ````
         http://localhost:4000/usersall
-        ````
+       
 
