@@ -47,10 +47,6 @@ npm start
       #### Registrar Usuario sin privilegios (Create)
 
         http://localhost:4000/registeruser
-    
-      #### Registar Usuario por Administrador (Create)
-
-        http://localhost:4000/registerUserByRol/Administrador/Administrador
 
       ##### JSON Body para registrar usuarios
         {
@@ -59,6 +55,11 @@ npm start
             "email_user":"pedro.gonzales192@example.com",
             "password_user":"1234"
         }
+
+
+      #### Registar Usuario por Administrador (Create)
+
+        http://localhost:4000/registerUserByRol/Administrador/Administrador
 
       #### Listar Usuarios (Read)
 
