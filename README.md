@@ -9,7 +9,7 @@ El proyecto esta dividido en dos partes el Backend y el Frontend, para poder des
 # Backend
 1. Estar dentro del directorio Backend e intalar las dependencias con el siguiente comando:
 
-`npm install` # Instalar dependencias
+`npm install` #Instalar dependencias
 
 2. Crear el archivo .env dentro del directorio Backend y completar los siguiente parametros:
 ```
