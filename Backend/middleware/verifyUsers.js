@@ -1,6 +1,6 @@
 import { tb_user } from "../model/userProfile.js";
 
-const qs = async (param, item) => {
+const querySet = async (param, item) => {
     try {
         const result = await tb_user.findOne({
             where: { [item]: param }
@@ -13,22 +13,13 @@ const qs = async (param, item) => {
 }
 
 export const verify = async (req, res, next) => {
-    const { first_name_user, email_user } = req.body
+    const { email_user } = req.body;
 
-    const val = [await qs(first_name_user, 'first_name_user'), await qs(email_user, 'email_user')]
+    const val = await querySet(email_user, 'email_user');
 
-    switch (true) {
-        case (val[0] && val[1]):
-            return res.json('Ya existe un usuario con ese nombre y email')
-            break
-        case (val[0]):
-            return res.json('Ya existe un usuario con ese nombre')
-            break
-        case (val[1]):
-            return res.json('Ya existe email')
-            break
-        default:
-            return next()
-            break
+    if (val) {
+        return res.json('Ya existe email');
     }
-}
+
+    return next();
+};
