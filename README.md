@@ -43,7 +43,7 @@ npm start
 ````
 5. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
-    #### CRUD Usuario
+    ### CRUD Usuario
       #### Registrar Usuario sin privilegios (Create)
 
         http://localhost:4000/registeruser
@@ -57,7 +57,8 @@ npm start
         }
 
 
-      #### Registar Usuario por Administrador (Create)
+      #### Registar Usuario por Administrador (Create): La API contiene un validador de autenticidad para que el usuario pueda loguearse y asi saber si posee el rol de administrador, para eso primero tenemos que loguearnos.
+        http://localhost:4000/login #Iniciar sesion
 
         http://localhost:4000/registerUserByRol/Administrador/Administrador
 
