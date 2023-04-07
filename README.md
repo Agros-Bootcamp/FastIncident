@@ -135,3 +135,40 @@ npm start
       #### Eliminar Rol (Delete): Recordar que se le pasa el pk_id_rol como parametro dentro de la URI para poder eliminar un rol en específico.
 
         http://localhost:4000/deleterol/7efef41a-3ceb-4b19-8ccf-79b048bbff27
+
+    ### CRUD para Tarea
+      Para las operaciones es necesario validar el accesToken de inicio de sesión, entonces pegamos el accessToken dentro del Bearer Token, para Postman apartado Authorization, para Thunder Client apartado Auth y ya con esto validamos el ingreso:
+
+      #### Crear una Tarea (Create)
+
+        http://localhost:4000/createTask
+
+      ##### JSON Body para crear tarea
+        {
+            "title_task": "Tarea 3",
+            "description_task": "Descripcion de la Tarea 3",
+            "start_date_task": "2023-04-01 10:00:00.00",
+            "end_date_task": "2023-04-01 10:00:00.00",
+            "development_HH": 3,
+            "reward_task": 10,
+            "limit_incidents": 2
+        }
+
+      #### Listar Tareas por usuario (Read): Recordar que se le pasa el pk_id_user como parametro dentro de la URI para poder listar las tareas relacionadas a un usuario en especifico.
+
+        http://localhost:4000/tasks/d578914c-b9b9-497f-8d9e-3dd62355c0e8
+       
+      #### Actualizar Rol (Update): Recordar que se le pasa el pk_id_task como parametro dentro de la URI para poder actualizar una tarea en específico.
+
+        http://localhost:4000/updaterol/988dc7d8-8147-47cc-a3d4-d857bb1967bd
+
+      ##### JSON Body para actualizar la tarea
+        
+        {
+            "title_rol_user": "Nuevo Rol Actualizado",
+            "description_rol_user": "Descripcion del nuevo rol"
+        }
+      
+      #### Eliminar Tarea (Delete): Recordar que se le pasa el pk_id_task como parametro dentro de la URI para poder eliminar una tarea en especifico en específico.
+
+        http://localhost:4000/tasks/fd05b90e-6bb0-4b6e-9386-c6a1c523ec35
