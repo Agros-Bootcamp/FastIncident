@@ -12,13 +12,13 @@ El proyecto esta dividido en dos partes el Backend y el Frontend, para poder des
 npm install
 ````
 2. Crear el archivo .env dentro del directorio Backend y completar los siguiente parametros:
-```
+````
 PORT=4000
 ACCESS_TOKEN=8eDg8FGviibFrNPKQ5m29l4lVEDIdAyq
 REFRESH_TOKEN=jvd9knTYn9WXjD2oDqpr1lV2oR1UkX9o
 PG_PASSWORD=admin(admin es el password)
-```
-3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias
+````
+3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias, esto para crear por defecto los dos roles:
 ```
 const main = async () => {
     try {
