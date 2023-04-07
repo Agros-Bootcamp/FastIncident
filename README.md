@@ -52,7 +52,7 @@ npm start
 
         http://localhost:4000/registerUserByRol/Administrador/Administrador
 
-       #### JSON Body para registrar usuarios
+      ##### JSON Body para registrar usuarios
         {
             "first_name_user":"Pedro1",
             "last_name_user":"Gonzales",
