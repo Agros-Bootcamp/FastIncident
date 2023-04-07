@@ -43,7 +43,7 @@ npm start
 ````
 5. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
-    ### CRUD Usuario
+    ### CRUD para Usuario
       #### Registrar Usuario sin privilegios (Create)
 
         http://localhost:4000/registeruser
@@ -105,3 +105,33 @@ npm start
       #### Eliminar Usuario (Delete): Recordar que se le pasa el pk_id_user como parametro dentro de la URI para poder eliminar un usuario en específico.
 
         http://localhost:4000/deleteuser/4936ad2b-01c3-4203-a6cf-554476e6753d
+    
+    ### CRUD para Rol
+      #### Registrar un Rol adicional (Create)
+
+        http://localhost:4000/registerrol
+
+      ##### JSON Body para registrar rol
+        {
+            "title_rol_user": "Integrante",
+            "description_rol_user": "Rol con los privilegios restringidos"
+        }
+
+      #### Listar Roles Existentes (Read):
+
+        http://localhost:4000/rolsall
+       
+      #### Actualizar Rol (Update): Recordar que se le pasa el pk_id_rol como parametro dentro de la URI para poder actualizar un rol en específico.
+
+        http://localhost:4000/updaterol/988dc7d8-8147-47cc-a3d4-d857bb1967bd
+
+      ##### JSON Body para actualizar el rol
+        
+        {
+            "title_rol_user": "Nuevo Rol Actualizado",
+            "description_rol_user": "Descripcion del nuevo rol"
+        }
+      
+      #### Eliminar Rol (Delete): Recordar que se le pasa el pk_id_rol como parametro dentro de la URI para poder eliminar un rol en específico.
+
+        http://localhost:4000/deleterol/7efef41a-3ceb-4b19-8ccf-79b048bbff27
