@@ -20,7 +20,6 @@ PG_PASSWORD=admin(admin es el password)
 ````
 3. Dentro del archivo server.js existe la siguiente función descomentar las dos sentencias, esto para crear por defecto los dos roles:
 ```
-<code style="background-color: #282c34; color: #abb2bf;">
 const main = async () => {
     try {
         await sqlDB.authenticate()
@@ -33,7 +32,6 @@ const main = async () => {
         console.log(error)
     }
 }
-</code>
 ```
 3. Ejecutar la aplicacion 
 
