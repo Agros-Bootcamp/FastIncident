@@ -43,8 +43,15 @@ npm start
 ````
 5. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
-    CRUD Usuario
+    #### CRUD Usuario
+      #### Registrar Usuario sin privilegios (Create)
+
+        http://localhost:4000/registeruser
     
+      #### Registar Usuario por Administrador (Create)
+
+        http://localhost:4000/registerUserByRol/Administrador/Administrador
+
       #### Listar Usuarios (Read)
 
         http://localhost:4000/usersall
