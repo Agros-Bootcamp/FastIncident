@@ -57,10 +57,34 @@ npm start
         }
 
 
-      #### Registar Usuario por Administrador (Create): La API contiene un validador de autenticidad para que el usuario pueda loguearse y asi saber si posee el rol de administrador, para eso primero tenemos que loguearnos.
+      #### Registrar Usuario por Administrador (Create): La API contiene un validador de autenticidad para que el usuario pueda loguearse y asi saber si posee el rol de administrador, para eso primero tenemos que loguearnos.
+
+      ##### Iniciar sesión
         http://localhost:4000/login #Iniciar sesion
 
+      ##### JSON Body para iniciar sesión
+        {    
+            "email_user":"pedro.gonzales1@example.com",
+            "password_user":"1234"
+        }
+
+      ##### Tenemos que copiar el accessToken de la respuesta que contendra el siguiente formato (El siguiente fragmento json es solo referencial)
+        {
+            "accessToken": "eyJhbGciOiJIUzI",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ"
+        }
+
+      ##### Pegamos el accessToken dentro del Bearer Token para Postman apartado Authorization para Thunder Client apartado Auth, recordar tambien que el ultimo parametro de la URI es para escoger el rol que tendra el usuario que queremos registrar para el ejemplo usamos el rol Administrador
+      
         http://localhost:4000/registerUserByRol/Administrador/Administrador
+      
+      ##### JSON Body para iniciar sesión
+        {
+            "first_name_user":"Pedro 27",
+            "last_name_user":"Gonzales 28",
+            "email_user":"pedro.gonzales28@example.com",
+            "password_user":"1234"
+        }
 
       #### Listar Usuarios (Read)
 
