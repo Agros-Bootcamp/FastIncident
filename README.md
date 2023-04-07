@@ -39,7 +39,7 @@ const main = async () => {
 -> Comando
 
 4. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 2):
-
+````
 npm start
-
+````
 
