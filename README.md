@@ -172,3 +172,77 @@ npm start
       #### Eliminar Tarea (Delete): Recordar que se le pasa el pk_id_task como parametro dentro de la URI para poder eliminar una tarea en especifico en específico.
 
         http://localhost:4000/tasks/fd05b90e-6bb0-4b6e-9386-c6a1c523ec35
+
+    ### CRUD para Tipos de Incidencia
+      Para las operaciones es necesario validar el accesToken de inicio de sesión, entonces pegamos el accessToken dentro del Bearer Token, para Postman apartado Authorization, para Thunder Client apartado Auth y ya con esto validamos el ingreso:
+
+      #### Crear un Tipo de Incidente (Create)
+
+        http://localhost:4000/registertypeincident
+
+      ##### JSON Body para crear Tipo de Incidente
+        {
+            "title_type_incident":"Bug 2",
+            "description_type_incident":"Incidencia ocacionado por un bug 2",
+            "penalty_incident": 2,
+            "returned_tokens": 1
+        }
+      #### Listar Tipos de Incidente (Read): 
+
+        http://localhost:4000/typeincidentsall
+       
+      #### Actualizar Tipos de Incidente (Update): Recordar que se le pasa el pk_id_type_incident como parametro dentro de la URI para poder actualizar una tipo de incidente en específico.
+
+        http://localhost:4000/updatetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
+
+      ##### JSON Body para actualizar el tipo de incidente
+        
+        {
+            "title_type_incident":"Bug Actulizado",
+            "description_type_incident":"Incidencia ocacionado por un bug",
+            "penalty_incident": 4,
+            "returned_tokens": 1
+        }
+      
+      #### Eliminar Tipo de Incidente (Delete): Recordar que se le pasa el pk_id_task como parametro dentro de la URI para poder eliminar un tipo de incidente en especifico en específico.
+
+        http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
+
+  ### CRUD para registrar Incidencia
+      Para las operaciones es necesario validar el accesToken de inicio de sesión, entonces pegamos el accessToken dentro del Bearer Token, para Postman apartado Authorization, para Thunder Client apartado Auth y ya con esto validamos el ingreso:
+
+      #### Crear Incidente (Create)
+
+        http://localhost:4000/registerIncident
+
+      ##### JSON Body para crear Incidente
+
+        {
+            "title_incident": "Incidencia de prueba 2",
+            "description_incident": "Esta es una incidencia de prueba 2",
+            "start_date_incident": "2023-04-01 10:00:00.00",
+            "end_date_incident": "2023-04-02 12:00:00.00",
+            "status_incident": 1,
+            "fk_id_task": "67570953-f3db-4777-977a-0379db7927cf",
+            "fk_id_type_incident": "6ea54739-847d-48a9-92fa-d122e1473252"
+        }
+
+      #### Listar los Incidentes (Read): 
+
+        http://localhost:4000/incidentsall
+       
+      #### Actualizar Incidente (Update): Recordar que se le pasa el pk_id_incident como parametro dentro de la URI para poder actualizar un incidente en específico.
+
+        http://localhost:4000/updateincident/5d6a9d3c-ec45-4f18-974d-a95eebd5eaae
+
+      ##### JSON Body para actualizar el tipo de incidente
+        
+        {
+            "title_incident": "Incidencia de prueba",
+            "description_incident": "Esta es una incidencia de prueba",
+            "status_incident": "Pendiente"
+        }
+      
+      #### Eliminar Incidente (Delete): Recordar que se le pasa el pk_id_incident como parametro dentro de la URI para poder eliminar un incidente en especifico en específico.
+
+        http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
