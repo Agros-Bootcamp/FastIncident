@@ -6,7 +6,7 @@ Además, es importante mencionar que Fastincident es un proyecto diseñado para 
 
 El proyecto esta dividido en dos partes el Backend y el Frontend, para poder desplegar tu proyecto en tu entorno local sigue los siguientes pasos.
 
-# Backend
+## Backend
 1. Estar dentro del directorio Backend e intalar las dependencias con el siguiente comando:
 ````
 npm install
@@ -46,7 +46,7 @@ npm start
 
     CRUD Usuario
     
-      ### Listar Usuarios (Read)
+      #### Listar Usuarios (Read)
 
         http://localhost:4000/usersall
        
