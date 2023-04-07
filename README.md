@@ -75,10 +75,10 @@ npm start
         }
 
       ##### Pegamos el accessToken dentro del Bearer Token para Postman apartado Authorization para Thunder Client apartado Auth, recordar tambien que el ultimo parametro de la URI es para escoger el rol que tendra el usuario que queremos registrar para el ejemplo usamos el rol Administrador
-      
+
         http://localhost:4000/registerUserByRol/Administrador/Administrador
       
-      ##### JSON Body para iniciar sesión
+      ##### JSON Body para registrar administrador
         {
             "first_name_user":"Pedro 27",
             "last_name_user":"Gonzales 28",
@@ -86,8 +86,21 @@ npm start
             "password_user":"1234"
         }
 
-      #### Listar Usuarios (Read)
+      #### Listar Usuarios (Read):
 
         http://localhost:4000/usersall
        
+      #### Actualizar Usuarios (Update): Recordar que se le pasa el pk_id_user como parametro dentro de la URI para poder actualizar un usuario en específico.
 
+        http://localhost:4000/updateuser/0a8775b2-718e-4299-95cd-0ddb09f86f1c
+
+      ##### JSON Body para actualizar usuario
+        {
+            "first_name_user":"Pedro Actualizado",
+            "last_name_user":"Gonzales Actualizado",
+            "email_user":"pedro.gonzales.actualizado@example.com",
+            "password_user":"1234"
+        }
+      
+      #### Eliminar Usuario (Delete): Recordar que se le pasa el pk_id_user como parametro dentro de la URI para poder eliminar un usuario en específico.
+      http://localhost:4000/deleteuser/4936ad2b-01c3-4203-a6cf-554476e6753d
