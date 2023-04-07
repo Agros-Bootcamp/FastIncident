@@ -141,10 +141,6 @@ export const tb_refresh_tokens = sqlDB.define('tb_refresh_tokens', {
     },
     refresh_token: {
         type: DataTypes.STRING
-    },
-    is_used: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
     }
 })
 

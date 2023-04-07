@@ -11,9 +11,9 @@ const qsUser = async (req, res) => {
             }
         })
 
-        const role = await tb_rol_user.findByPk(user.pk_id_user)
+        const role = await tb_rol_user.findByPk(user.fk_id_rol_user)
 
-        if (user && role ) return {...user, title_rol_user: role.title_rol_user}
+        if (user && role ) return {...user.dataValues, title_rol_user: role.title_rol_user}
         else return res.json('No hay un usuario con ese email')
     } catch (error) {
         return null

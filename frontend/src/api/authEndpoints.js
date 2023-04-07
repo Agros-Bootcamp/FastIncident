@@ -1,4 +1,4 @@
-import { apiSlice } from "./main/apiSlice";
+import { apiSlice } from "./main/apiSlice"
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -8,7 +8,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { ...cred }
             })
-        }),
+        })
     })
 })
 
