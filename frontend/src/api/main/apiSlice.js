@@ -14,25 +14,25 @@ const fetchUpdateTokens = async (token) => {
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:4000/',
-    credentials: 'include',
-    prepareHeaders: (headers, {getState}) => {
-        const token = getState.auth.access;
-        if(token!==undefined) {
+    // credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+        const token = getState().auth.accessToken
+        if (token!==undefined) {
             headers.set('authorization', `Bearer ${token}`)
         }
         return headers
     }
 })
 
-const baseQueryWithReAuth = async (args, api, extraOptions) => {
+const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
 
-    if ( result?.error?.status === 401) {
+    if ( result?.error?.status===403 ){
 
-        const refreshToken = api.getState().auth.access
+        const refreshToken = api.getState().auth.refreshToken
         const refreshResult = await fetchUpdateTokens(refreshToken)
 
-        if (result?.data) {
+        if(refreshResult?.data) {
 
             api.dispatch(setTokens(refreshResult.data))
             result = await baseQuery(args, api, extraOptions)
@@ -40,15 +40,13 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
         } else {
 
             api.dispatch(logOut())
-
+        
         }
-
-        return result
-
     }
+    return result
 }
 
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReAuth,
+    baseQuery: baseQueryWithReauth,
     endpoints: () => ({})
 })

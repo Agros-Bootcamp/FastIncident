@@ -6,24 +6,13 @@ const cookies = new Cookies()
 
 const cookieData = cookies.get('tokens')
 
-// const initialState = {
-//     ...cookieData,
-//     online: true,
-//     UserInfo: jwt_encode(cookieData.access)
-// } || {
-//     access: undefined,
-//     refresh: undefined,
-//     UserInfo: undefined,
-//     online: false
-// }
-
 const initialState = cookieData? {
     ...cookieData,
     online: true,
-    UserInfo: jwt_encode(cookieData.access)
+    UserInfo: jwt_encode(cookieData.accessToken).UserInfo
 } : {
-    access: undefined,
-    refresh: undefined,
+    accessToken: undefined,
+    refreshToken: undefined,
     UserInfo: undefined,
     online: false
 }
@@ -33,9 +22,11 @@ const authSlice = createSlice({
     initialState: initialState,
     reducers: {
         setTokens: (state, {payload}) => {
-            state.access = payload.access
-            state.refresh = payload.refresh
-            state.UserInfo = jwt_encode(payload.access)
+
+            state.access = payload.accessToken
+            state.refresh = payload.refreshToken
+            console.log(payload)
+            state.UserInfo = jwt_encode(payload.accessToken).UserInfo
             state.online=true
             cookies.set('tokens', payload, {
                 path: '/'
