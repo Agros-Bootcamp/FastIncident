@@ -45,6 +45,7 @@ npm start
 5. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
     CRUD Usuario
+        #Listart Usuarios (Read)
 
         http://localhost:4000/usersall
        
