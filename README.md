@@ -103,4 +103,5 @@ npm start
         }
       
       #### Eliminar Usuario (Delete): Recordar que se le pasa el pk_id_user como parametro dentro de la URI para poder eliminar un usuario en específico.
+      
       http://localhost:4000/deleteuser/4936ad2b-01c3-4203-a6cf-554476e6753d
