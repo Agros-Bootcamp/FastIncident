@@ -1,6 +1,6 @@
 import { tb_rol_user, tb_user } from "../model/userProfile.js"
 
-const qs_role = async (pk_id_user, title_rol_user, res) => {
+const querySetRole = async (pk_id_user, title_rol_user, res) => {
     try {
 
         const result1 = await tb_rol_user.findOne({
@@ -24,10 +24,11 @@ const qs_role = async (pk_id_user, title_rol_user, res) => {
     }
 }
 
+//Revisar función
 export const validate_access = async (req, res, next) => {
     const { pk_id_user } = req.UserInfo
     const role = req.path.split('/')[2]
-    const result = await qs_role(pk_id_user, role, res)
+    const result = await querySetRole(pk_id_user, role, res)
     if (!result) return res.json('No tiene permisos para acceder a esta funcion')
     else {
         req.role = result

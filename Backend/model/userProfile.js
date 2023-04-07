@@ -10,12 +10,10 @@ export const tb_user = sqlDB.define('tb_user', {
     },
     first_name_user: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     last_name_user: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     email_user: {
@@ -54,7 +52,8 @@ export const tb_rol_user = sqlDB.define('tb_rol_user', {
         type: DataTypes.STRING
     },
     description_rol_user: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
 
@@ -72,7 +71,8 @@ export const tb_task = sqlDB.define('tb_task', {
         type: DataTypes.STRING
     },
     status_task: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: 'open'
     },
     start_date_task: {
         type: DataTypes.DATE
@@ -139,6 +139,37 @@ export const tb_type_incident = sqlDB.define('tb_type_incident', {
     returned_tokens: {
         type: DataTypes.INTEGER
     }
+})
+
+export const tb_refresh_tokens = sqlDB.define('tb_refresh_tokens', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    refresh_token: {
+        type: DataTypes.STRING
+    },
+    is_used: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    }
+})
+
+tb_user.hasMany(tb_refresh_tokens, {
+    foreignKey: {
+        name: 'fk_id_refresh_token',
+        allowNull: false
+    },
+    sourceKey: 'pk_id_user'
+})
+
+tb_refresh_tokens.belongsTo(tb_user, {
+    foreignKey: {
+        name: 'fk_id_refresh_token',
+        allowNull: false
+    },
+    targetId: 'pk_id_user'
 })
 
 tb_rol_user.hasMany(tb_user, {

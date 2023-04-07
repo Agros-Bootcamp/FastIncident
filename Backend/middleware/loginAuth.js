@@ -1,10 +1,10 @@
 export const verify = async (req, res, next) => {
-    const {email, password} = req.body
-    !email?
-    res.json('Ingrese email'):
-        !password?
-        res.json({message:'Ingrese contraseña'}):
-            !email && !password ?
-            res.json({message: 'No ha ingresado credenciales'}):
+    const { email_user, password_user } = req.body
+    !email_user ?
+        res.json('Ingrese email') :
+        !password_user ?
+            res.json({ message: 'Ingrese contraseña' }) :
+            !email_user && !password_user ?
+                res.json({ message: 'No ha ingresado credenciales' }) :
                 next()
 }

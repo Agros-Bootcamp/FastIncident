@@ -7,8 +7,9 @@ import { validate_access } from '../middleware/validateRole.js'
 
 
 export const userRouter = Router()
+export const registerUserByRoleRoute = Router()
 userRouter.post('/registeruser', verify, registerUser)
-userRouter.post('/registerUser/Administrador', verify, verifyJWT)
+registerUserByRoleRoute.post('/registerUserByRol/Administrador/:role', verify, verifyJWT, validate_access, registerUserByRole)
 userRouter.get('/usersall', verify, listUsers);
 userRouter.put('/updateuser/:id', verify, updateUser);
 userRouter.delete('/deleteuser/:id', verify, deleteUser);

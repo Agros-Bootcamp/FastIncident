@@ -38,10 +38,7 @@ export const registerUser = async (req, res) => {
 export const registerUserByRole = async (req, res) => {
     const { password_user } = req.body
     const { role } = req.params
-
-
     const fk_id_rol_user = await searchMemberRole(role, res)
-
     try {
         const hashedPWD = await bcrypt.hash(password_user, 10)
 
