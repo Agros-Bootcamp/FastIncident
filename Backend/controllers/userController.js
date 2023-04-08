@@ -1,7 +1,7 @@
 import { tb_user, tb_rol_user } from "../model/userProfile.js";
 import bcrypt from 'bcrypt'
 
-//Función que devuelve el pk_id_rol_user
+//Función que devuelve el pk_id_rol_user, para asi poder identificar el rol
 const searchMemberRole = async (title_rol_user, res) => {
     try {
         const result = await tb_rol_user.findOne({
