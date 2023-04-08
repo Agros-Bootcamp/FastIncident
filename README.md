@@ -253,7 +253,7 @@ npm run dev
 ````
 http://localhost:4000/inactivityusersall
 ````
-  * Mostrara un response en formato json de la siguiente manera:
+  * Mostrara un response en formato json de la siguiente manera con todos los usuarios que tiene igual o más de 5 días de inactividad:
   ````
   [
     {
