@@ -13,10 +13,20 @@ export const getInactiveUsers = async (req, res) => {
     });
 
     if (inactiveUsers.length > 0) {
-        res.json(inactiveUsers);
+        // Agregamos la propiedad "days_inactivity" al objeto JSON de cada usuario inactivo
+        const usersWithDaysInactive = inactiveUsers.map(user => {
+            const days_inactivity = moment().diff(user.last_date_login, 'days');
+            return {
+                ...user.toJSON(),
+                days_inactivity
+            };
+        });
+
+        res.json(usersWithDaysInactive);
     } else {
         res.json({ message: "No se encontraron usuarios inactivos." });
     }
 };
+
 
 
