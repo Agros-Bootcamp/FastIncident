@@ -47,9 +47,7 @@ const createJWT = (data) => {
 }
 
 export const authTokens = async (req, res, next) => {
-
     const { password_user } = req.body
-
     //Validacion de email de usuario
     const user = await qsUser(req, res)
     if (!user) return res.json('no hay')
@@ -66,7 +64,12 @@ export const authTokens = async (req, res, next) => {
             refresh_token: token.refreshToken,
             fk_id_refresh_token: user.pk_id_user
         })
-        //aqui puedo agregar la función 
+        //aqui puedo agregar la función para que actualicé la fecha de ultimo inicio de sesión
+        // Actualiza el campo last_date_login con la fecha actual
+        await tb_user.update(
+            { last_date_login: new Date() },
+            { where: { pk_id_user: user.pk_id_user } }
+        )
         res.json(token)
         next()
     } else return res.json('No coninciden credenciales')

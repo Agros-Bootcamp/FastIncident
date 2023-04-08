@@ -65,32 +65,28 @@ export const listUsers = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const { id } = req.params; // Obtiene el id del usuario a actualizar desde los parámetros de la solicitud
-    const { first_name_user, last_name_user, email_user, password_user } = req.body; // Obtiene los nuevos datos del usuario desde el cuerpo de la solicitud
-    const hashedPWD = await bcrypt.hash(password_user, 10)
+    const { id } = req.params;
+    const { first_name_user, last_name_user, email_user, password_user } = req.body;
+    const hashedPWD = password_user ? await bcrypt.hash(password_user, 10) : undefined;
 
+    // Crear objeto con los campos que se quieren actualizar
+    const updatedFields = {};
+    if (first_name_user) updatedFields.first_name_user = first_name_user;
+    if (last_name_user) updatedFields.last_name_user = last_name_user;
+    if (email_user) updatedFields.email_user = email_user;
+    if (hashedPWD) updatedFields.password_user = hashedPWD;
     try {
-        // Busca el usuario a actualizar en la base de datos
-        const userToUpdate = await tb_user.findOne({ where: { pk_id_user: id } });
+        const [updatedRows] = await tb_user.update(updatedFields, { where: { pk_id_user: id } });
 
-        // Si el usuario no existe, devuelve un error
-        if (!userToUpdate) {
+        if (updatedRows === 0) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
-
-        // Actualiza los datos del usuario con los nuevos valores
-        userToUpdate.first_name_user = first_name_user;
-        userToUpdate.last_name_user = last_name_user;
-        userToUpdate.email_user = email_user;
-        userToUpdate.password_user = hashedPWD;
-        await userToUpdate.save(); // Guarda los cambios en la base de datos
-
-        // Devuelve los nuevos datos del usuario actualizado
-        res.json(userToUpdate);
+        res.json({ message: "Usuario actualizado exitosamente" });
     } catch (error) {
         res.json(error);
     }
 };
+
 
 export const deleteUser = async (req, res) => {
     const { id } = req.params; // Obtiene el id del usuario a eliminar desde los parámetros de la solicitud
