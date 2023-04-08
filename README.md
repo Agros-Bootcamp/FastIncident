@@ -24,10 +24,10 @@ const main = async () => {
     try {
         await sqlDB.authenticate()
         await sqlDB.sync({force:false})
-        // const roles = ['integrante', 'administrador']
+        // const roles = ['Integrante', 'Administrador']
         // roles.map(async (rol)=>create_default_roles(rol))
         app.listen(4000)
-        console.log('works')
+        console.log('Start')
     } catch (error) {
         console.log(error)
     }
@@ -39,11 +39,11 @@ const main = async () => {
 npm run dev
 ````
 
-5. Levantar el proyecto con el comando(Volver a comentar las sentencias del paso 3):
+5. Levantar el proyecto con el siguiente comando: (Volver a comentar las sentencias del paso 3 antede de ejecutar el comando):
 ````
 npm run dev
 ````
-6. Una vez que despliegas tu proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
+6. Una vez que despliegas el proyecto en tu entorno local te mostraremos los endpoints para consumir la API:
 
     ### CRUD para Usuario
       #### Registrar Usuario sin privilegios (Create)
