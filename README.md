@@ -255,4 +255,19 @@ http://localhost:4000/inactivityusersall
 ````
   * Mostrara un response en formato json de la siguiente manera:
   ````
-  
+  [
+    {
+        "pk_id_user": "5550c43a-6498-4e13-9638-10a331a76380",
+        "first_name_user": "Pedro1",
+        "last_name_user": "Gonzales",
+        "email_user": "pedro.gonzales1@example.com",
+        "password_user": "$2b$10$8w4grAEjkPiDgcBGNJdOJeMz8GE.Gi6gePVsZG6HPQd.NY6obXofy",
+        "last_date_login": "2023-04-03T01:48:21.318Z",
+        "balance_token": 0,
+        "createdAt": "2023-04-07T01:48:21.319Z",
+        "updatedAt": "2023-04-07T01:48:21.319Z",
+        "fk_id_rol_user": "ec6e2283-588b-455c-a8fb-4bc18d52fa1d",
+        "days_inactivity": 5
+    }
+  ]
+  ````
