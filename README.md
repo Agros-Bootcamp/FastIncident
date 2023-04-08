@@ -248,3 +248,11 @@ npm run dev
       #### Eliminar Incidente (Delete): Recordar que se le pasa el pk_id_incident como parametro dentro de la URI para poder eliminar un incidente en especifico en específico.
 
         http://localhost:4000/deletetypeincident/85e22b99-90fa-4ad6-8a6d-70b5d96bb70a
+
+7. Para poder obtener las notificaciones de inactividad del usuario usamos el siguiente endpoint:
+````
+http://localhost:4000/inactivityusersall
+````
+  * Mostrara un response en formato json de la siguiente manera:
+  ````
+  
