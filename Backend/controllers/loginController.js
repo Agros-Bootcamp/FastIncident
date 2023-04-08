@@ -66,7 +66,7 @@ export const authTokens = async (req, res, next) => {
             refresh_token: token.refreshToken,
             fk_id_refresh_token: user.pk_id_user
         })
-
+        //aqui puedo agregar la función 
         res.json(token)
         next()
     } else return res.json('No coninciden credenciales')
