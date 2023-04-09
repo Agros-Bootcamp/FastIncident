@@ -28,7 +28,7 @@ export const readHookPush = async (req, res) => {
     console.log(req.body);
 
     // enviar correo electrónico usando SendGrid
-    sgMail.setApiKey('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');
+    sgMail.setApiKey('');
     const msg = {
         to: 'suarezmontezacristhian@gmail.com',
         from: 'suarezmontezacristhian@gmail.com',
