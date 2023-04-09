@@ -1,4 +1,4 @@
-import {app} from './app.js'
+import { app } from './app.js'
 import sqlDB from './database/database.js'
 import './model/userProfile.js'
 
@@ -16,11 +16,11 @@ const create_default_roles = async (title_rol_user) => {
 const main = async () => {
     try {
         await sqlDB.authenticate()
-        await sqlDB.sync({force:false})
-        // const roles = ['integrante', 'administrador']
+        await sqlDB.sync({ force: false })
+        // const roles = ['Integrante', 'Administrador']
         // roles.map(async (rol)=>create_default_roles(rol))
         app.listen(4000)
-        console.log('works')
+        console.log('Start')
 
     } catch (error) {
         console.log(error)
