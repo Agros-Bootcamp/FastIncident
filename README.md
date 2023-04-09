@@ -271,4 +271,4 @@ http://localhost:4000/inactivityusersall
     }
   ]
   ````
-// hook prueba 1
+// hook prueba 2
