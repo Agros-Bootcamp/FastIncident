@@ -9,7 +9,7 @@ export const readHookPush = async (req, res) => {
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
         await client.messages.create({
-            body: `${committer.name} realizó un push al repositorio de FastIncident el día ${timestamp}`,
+            body: `${committer.name} realizó un push al repositorio de FastIncident el día ${timestamp}, puedes revisarlo en el siguiente enlace: ${url}`,
             from: '+15076046986',
             to: '+51918635054'
         });
