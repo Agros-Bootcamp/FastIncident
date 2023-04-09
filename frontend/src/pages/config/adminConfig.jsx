@@ -5,7 +5,7 @@ export const AdminPrivateRoute = () => {
     const userInfo = useSelector(state=>state.auth.UserInfo)
     const role = userInfo?userInfo.title_rol_user:undefined
     const match = role == 'administrador'? true : false
-    //Comenario
+    //Comenario 2
     return (
         match? <Outlet /> : <Navigate to='/Home' />
     )
