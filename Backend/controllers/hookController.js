@@ -1,10 +1,10 @@
 
-/*export const readHooks = async (req, res) => {
+/*export const readHookPush = async (req, res) => {
     console.log(req.body);
     res.status(200).json(req.body).end();
 };*/
 
-export const readHooks = async (req, res) => {
+export const readHookPush = async (req, res) => {
     const { head_commit } = req.body; // obtener solo el objeto head_commit del body
     const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit; // desestructurar los datos del objeto head_commit
 
@@ -13,7 +13,10 @@ export const readHooks = async (req, res) => {
     res.status(200).json({ success: true }).end();
 };
 
-
+export const readHookIssues = async (req, res) => {
+    console.log(req.body);
+    res.status(200).json(req.body).end();
+};
 
 
 
@@ -21,7 +24,7 @@ export const readHooks = async (req, res) => {
 /*
 import sgMail from '@sendgrid/mail';
 
-export const readHooks = async (req, res) => {
+export const readHookPush = async (req, res) => {
     console.log(req.body);
 
     // enviar correo electrónico usando SendGrid
