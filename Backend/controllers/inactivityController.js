@@ -17,11 +17,10 @@ export const getInactiveUsers = async (req, res) => {
         const usersWithDaysInactive = inactiveUsers.map(user => {
             const days_inactivity = moment().diff(user.last_date_login, 'days');
             return {
-                ...user.toJSON(),
+                ...user,
                 days_inactivity
             };
         });
-
         res.json(usersWithDaysInactive);
     } else {
         res.json({ message: "No se encontraron usuarios inactivos." });
