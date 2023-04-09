@@ -4,12 +4,23 @@ export const readHookPush = async (req, res) => {
     try {
         const { head_commit } = req.body;
         const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit;
-        console.log({ id, message, timestamp, url, author, committer, added, removed, modified });
+        const date = new Date(timestamp);
+        const options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZoneName: 'short'
+        };
+        const formattedDate = date.toLocaleString('es-ES', options);
+
+        console.log({ id, message, formattedDate, url, author, committer, added, removed, modified });
 
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
         await client.messages.create({
-            body: `${committer.name} realizó un push al repositorio de FastIncident el día ${timestamp}, puedes revisarlo en el siguiente enlace: ${url}`,
+            body: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}. Puedes revisarlo en el siguiente enlace: ${url}`,
             from: '+15076046986',
             to: '+51918635054'
         });
@@ -21,6 +32,7 @@ export const readHookPush = async (req, res) => {
         res.status(500).end();
     }
 };
+
 
 //Revisar eso
 //comentario
