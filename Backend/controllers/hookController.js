@@ -1,19 +1,28 @@
 import twilio from 'twilio'
+
 export const readHookPush = async (req, res) => {
-    console.log(req.body);
-    const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+    try {
+        const { head_commit } = req.body;
+        const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit;
+        console.log({ id, message, timestamp, url, author, committer, added, removed, modified });
 
-    client.messages
-        .create({
-            body: 'Se realizó un push al repositorio de FastIncident',
+        const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
+        await client.messages.create({
+            body: `${committer.name} realizó un push al repositorio de FastIncident el día ${timestamp}`,
             from: '+15076046986',
-            to: '+51968532084'
-        })
-        .then(message => console.log(message.sid))
-        .catch(error => console.error(error));
+            to: '+51918635054'
+        });
 
-    res.status(200).json(req.body).end();
+        console.log('Mensaje enviado correctamente.');
+        res.status(200).json(req.body).end();
+    } catch (error) {
+        console.error('Ocurrió un error al enviar el mensaje:', error);
+        res.status(500).end();
+    }
 };
+
+//Revisar eso
 //comentario
 /*export const readHookPush = async (req, res) => {
     const { head_commit } = req.body; // obtener solo el objeto head_commit del body
