@@ -2,21 +2,32 @@ import twilio from 'twilio'
 
 export const readHookPush = async (req, res) => {
     try {
+        // Obtenemos el objeto 'head_commit' del cuerpo de la petición
         const { head_commit } = req.body;
+
+        // Extraemos los datos relevantes del objeto 'head_commit'
         const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit;
+
+        // Creamos un objeto 'Date' a partir del timestamp del commit
         const date = new Date(timestamp);
+
+        // Configuramos las opciones para dar formato a la fecha y hora
         const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric'
-        };//
+            weekday: 'long', // El nombre completo del día de la semana (por ejemplo, "domingo")
+            year: 'numeric', // El año con 4 dígitos (por ejemplo, "2023")
+            month: 'long', // El nombre completo del mes (por ejemplo, "abril")
+            day: 'numeric', // El número del día del mes (por ejemplo, "09")
+            hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
+            minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
+        };
+
+        // Convertimos la fecha a un string con el formato configurado
         const formattedDate = date.toLocaleString('es-PE', options);
 
+        // Mostramos los datos relevantes por consola para verificar que todo funciona correctamente
         console.log({ id, message, formattedDate, url, author, committer, added, removed, modified });
 
+        // Enviamos el mensaje de texto con Twilio
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
         await client.messages.create({
@@ -25,9 +36,13 @@ export const readHookPush = async (req, res) => {
             to: '+51918635054'
         });
 
+        // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
         console.log('Mensaje enviado correctamente.');
+
+        // Respondemos con un estado 200 (OK) y el cuerpo de la petición recibida
         res.status(200).json(req.body).end();
     } catch (error) {
+        // En caso de error, mostramos un mensaje por consola y respondemos con un estado 500 (Internal Server Error)
         console.error('Ocurrió un error al enviar el mensaje:', error);
         res.status(500).end();
     }
