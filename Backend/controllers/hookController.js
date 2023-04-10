@@ -4,7 +4,8 @@ export const readHookPush = async (req, res) => {
     try {
         // Verificamos si existe req.body
         if (!req.body) {
-            throw new Error('No se recibió ningún parámetro en el body.');
+            console.log('No se recibió ningún parámetro en el body.')
+            //throw new Error('No se recibió ningún parámetro en el body.');
         }
 
         // Obtenemos el objeto 'head_commit' del cuerpo de la petición
@@ -12,51 +13,58 @@ export const readHookPush = async (req, res) => {
 
         // Verificamos si existe head_commit
         if (!head_commit) {
-            throw new Error('No se recibió el objeto "head_commit" en el body.');
+            console.log('No se recibió el objeto "head_commit" en el body.')
+            //throw new Error('No se recibió el objeto "head_commit" en el body.');
         }
 
-        // Extraemos los datos relevantes del objeto 'head_commit'
-        const { id = '', message = '', timestamp = '', url = '', author = {}, committer = {}, added = [], removed = [], modified = [] } = head_commit;
+        // Verificamos si los campos relevantes de head_commit están vacíos
+        if (!req.body && !head_commit) {
+            console.log('Conexión exitosa.');
+            return res.status(200).end();
+        }
 
-        // Creamos un objeto 'Date' a partir del timestamp del commit
-        const date = new Date(timestamp);
+        if (req.body != null && head_commit != null) {
+            const { id, message, timestamp, url, author, committer, added = [], removed = [], modified = [] } = head_commit;
 
-        // Configuramos las opciones para dar formato a la fecha y hora
-        const options = {
-            weekday: 'long', // El nombre completo del día de la semana (por ejemplo, "domingo")
-            year: 'numeric', // El año con 4 dígitos (por ejemplo, "2023")
-            month: 'long', // El nombre completo del mes (por ejemplo, "abril")
-            day: 'numeric', // El número del día del mes (por ejemplo, "09")
-            hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
-            minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
-        };
+            // Creamos un objeto 'Date' a partir del timestamp del commit
+            const date = new Date(timestamp);
 
-        // Convertimos la fecha a un string con el formato configurado
-        const formattedDate = date.toLocaleString('es-PE', options);
+            // Configuramos las opciones para dar formato a la fecha y hora
+            const options = {
+                weekday: 'long', // El nombre completo del día de la semana (por ejemplo, "domingo")
+                year: 'numeric', // El año con 4 dígitos (por ejemplo, "2023")
+                month: 'long', // El nombre completo del mes (por ejemplo, "abril")
+                day: 'numeric', // El número del día del mes (por ejemplo, "09")
+                hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
+                minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
+            };
 
-        // Mostramos los datos relevantes por consola para verificar que todo funciona correctamente
-        console.log({ id, message, formattedDate, url, author, committer, added, removed, modified });
+            // Convertimos la fecha a un string con el formato configurado
+            const formattedDate = date.toLocaleString('es-PE', options);
 
-        // Enviamos el mensaje de texto con Twilio
-        const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+            // Enviamos el mensaje de texto con Twilio
+            const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
-        await client.messages.create({
-            body: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
-            from: '+15076046986',
-            to: '+51918635054'
-        });
+            await client.messages.create({
+                body: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
+                from: '+15076046986',
+                to: '+51918635054'
+            });
 
-        // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
-        console.log('Mensaje enviado correctamente.');
+            // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
+            console.log('Mensaje enviado correctamente.');
 
+        }
+        // Extraemos los datos relevantes del objeto 'head_commit
         // Respondemos con un estado 200 (OK) y el cuerpo de la petición recibida
         res.status(200).json(req.body).end();
     } catch (error) {
         // En caso de error, mostramos un mensaje por consola y respondemos con un estado 500 (Internal Server Error)
         console.error('Ocurrió un error al enviar el mensaje:', error);
-        res.status(200).end();
+        res.status(500).end();
     }
 };
+
 
 
 
