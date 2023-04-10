@@ -4,14 +4,11 @@ export const readHookPush = async (req, res) => {
     try {
         // Obtenemos el objeto 'head_commit' del cuerpo de la petición
         const { head_commit } = req.body;
-
         // Verificamos si existe head_commit
         if (!head_commit) {
             console.log('Conexión exitosa.');
             return res.status(200).end();
-
         }
-
         if (req.body != null && head_commit != null) {
             const { timestamp, url, committer } = head_commit;
 
@@ -27,11 +24,8 @@ export const readHookPush = async (req, res) => {
                 hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
                 minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
             };
-
             // Convertimos la fecha a un string con el formato configurado
             const formattedDate = date.toLocaleString('es-PE', options);
-
-
             // Enviamos el mensaje de texto con Twilio
             const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
