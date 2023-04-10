@@ -32,7 +32,7 @@ const createJWT = (data) => {
             "title_rol_user": data.title_rol_user
         }
     }, process.env.ACCESS_TOKEN,
-        { expiresIn: '30m' })
+        { expiresIn: '10s' })
 
     const refreshToken = jwt.sign(
         { 'pk_id_user': data.pk_id_user },
@@ -47,9 +47,7 @@ const createJWT = (data) => {
 }
 
 export const authTokens = async (req, res, next) => {
-
     const { password_user } = req.body
-
     //Validacion de email de usuario
     const user = await qsUser(req, res)
     if (!user) return res.json('no hay')
@@ -66,7 +64,12 @@ export const authTokens = async (req, res, next) => {
             refresh_token: token.refreshToken,
             fk_id_refresh_token: user.pk_id_user
         })
-        //aqui puedo agregar la función 
+        //aqui puedo agregar la función para que actualicé la fecha de ultimo inicio de sesión
+        // Actualiza el campo last_date_login con la fecha actual
+        await tb_user.update(
+            { last_date_login: new Date() },
+            { where: { pk_id_user: user.pk_id_user } }
+        )
         res.json(token)
         next()
     } else return res.json('No coninciden credenciales')
@@ -86,8 +89,12 @@ export const refreshToken = async (req, res) => {
             //Consulta la informacion del usuario
             const user = await tb_user.findByPk(actualRefreshToken.fk_id_refresh_token)
 
+            const role = await tb_rol_user.findByPk(user.fk_id_rol_user)
+
+            const data = {...user.dataValues, title_rol_user:role.title_rol_user}
+
             //Crea nuevo JWT
-            const newJWT = createJWT(user)
+            const newJWT = createJWT(data)
 
             const newRefreshToken = await tb_refresh_tokens.create({
                 refresh_token: newJWT.refreshToken,

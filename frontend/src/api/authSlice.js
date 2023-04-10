@@ -23,10 +23,10 @@ const authSlice = createSlice({
     reducers: {
         setTokens: (state, {payload}) => {
 
-            state.access = payload.accessToken
-            state.refresh = payload.refreshToken
+            state.accessToken = payload.accessToken
+            state.refreshToken = payload.refreshToken
             console.log(payload)
-            state.UserInfo = jwt_encode(payload.accessToken).UserInfo
+            state.UserInfo = jwt_encode(state.accessToken).UserInfo
             state.online=true
             cookies.set('tokens', payload, {
                 path: '/'

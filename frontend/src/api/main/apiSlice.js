@@ -5,8 +5,8 @@ import { setTokens, logOut } from "../authSlice";
 
 const fetchUpdateTokens = async (token) => {
     try {
-        const response = await axios.post('http://localhost:4000/refresh/', token)
-        return response
+        const response = await axios.post('http://localhost:4000/refreshToken/', token)
+        if(response) return response
     } catch (error) {
         console.log(error)
     }
@@ -16,9 +16,9 @@ const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:4000/',
     // credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = getState().auth.accessToken
-        if (token!==undefined) {
-            headers.set('authorization', `Bearer ${token}`)
+        const {accessToken} = getState().auth
+        if (accessToken!==undefined) {
+            headers.set('authorization', `Bearer ${accessToken}`)
         }
         return headers
     }
@@ -27,11 +27,16 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
 
-    if ( result?.error?.status===403 ){
+    if ( result?.error?.originalStatus === 403 ){
 
-        const refreshToken = api.getState().auth.refreshToken
-        const refreshResult = await fetchUpdateTokens(refreshToken)
+        const {refreshToken} = api.getState().auth
+        console.log(refreshToken)
 
+        const refreshResult = await fetchUpdateTokens({
+            refreshToken: refreshToken
+        })
+
+        console.log(refreshResult)
         if(refreshResult?.data) {
 
             api.dispatch(setTokens(refreshResult.data))

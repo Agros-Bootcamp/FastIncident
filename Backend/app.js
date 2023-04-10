@@ -6,6 +6,8 @@ import { routerJWT, routerLogin } from './routes/login.js'
 import { taskRoute } from './routes/tasks.js'
 import { typeIncidentRoute } from './routes/typeIncident.js'
 import { incidentRoute } from './routes/incident.js'
+import { inactivityRoute } from './routes/inactivity.js'
+import { hookRoute } from './routes/hook.js'
 import { config } from 'dotenv'
 import cors from 'cors'
 
@@ -24,3 +26,5 @@ app.use(rolRoute)
 app.use(taskRoute)
 app.use(typeIncidentRoute)
 app.use(incidentRoute)
+app.use(inactivityRoute)
+app.use(hookRoute)
