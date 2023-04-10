@@ -2,29 +2,18 @@ import twilio from 'twilio'
 
 export const readHookPush = async (req, res) => {
     try {
-        // Verificamos si existe req.body
-        if (!req.body) {
-            console.log('No se recibió ningún parámetro en el body.')
-            //throw new Error('No se recibió ningún parámetro en el body.');
-        }
-
         // Obtenemos el objeto 'head_commit' del cuerpo de la petición
         const { head_commit } = req.body;
 
         // Verificamos si existe head_commit
         if (!head_commit) {
-            console.log('No se recibió el objeto "head_commit" en el body.')
-            //throw new Error('No se recibió el objeto "head_commit" en el body.');
-        }
-
-        // Verificamos si los campos relevantes de head_commit están vacíos
-        if (!req.body && !head_commit) {
             console.log('Conexión exitosa.');
             return res.status(200).end();
+
         }
 
         if (req.body != null && head_commit != null) {
-            const { id, message, timestamp, url, author, committer, added = [], removed = [], modified = [] } = head_commit;
+            const { timestamp, url, committer } = head_commit;
 
             // Creamos un objeto 'Date' a partir del timestamp del commit
             const date = new Date(timestamp);
@@ -53,10 +42,7 @@ export const readHookPush = async (req, res) => {
 
             // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
             console.log('Mensaje enviado correctamente.');
-
         }
-        // Extraemos los datos relevantes del objeto 'head_commit
-        // Respondemos con un estado 200 (OK) y el cuerpo de la petición recibida
         res.status(200).json(req.body).end();
     } catch (error) {
         // En caso de error, mostramos un mensaje por consola y respondemos con un estado 500 (Internal Server Error)
