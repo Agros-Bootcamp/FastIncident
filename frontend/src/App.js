@@ -10,7 +10,7 @@ import { LoginAndRegisterException, UserPrivateRoute } from './pages/config/user
 import { AdminPrivateRoute } from "./pages/config/adminConfig"
 import RegisterTasks from "./pages/private/Admin/RegisterTasks"
 import RegisterIncidents from "./pages/private/Admin/RegisterIncidents"
-//comentario 1
+//comentario 12
 const App = () => {
   return (
     <BrowserRouter>
