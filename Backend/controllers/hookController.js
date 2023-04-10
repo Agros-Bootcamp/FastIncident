@@ -31,6 +31,7 @@ export const readHookPush = async (req, res) => {
             // Convertimos la fecha a un string con el formato configurado
             const formattedDate = date.toLocaleString('es-PE', options);
 
+            console.log({ timestamp, url, committer });
             // Enviamos el mensaje de texto con Twilio
             const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
