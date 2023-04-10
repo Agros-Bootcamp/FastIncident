@@ -2,11 +2,21 @@ import twilio from 'twilio'
 
 export const readHookPush = async (req, res) => {
     try {
+        // Verificamos si existe req.body
+        if (!req.body) {
+            throw new Error('No se recibió ningún parámetro en el body.');
+        }
+
         // Obtenemos el objeto 'head_commit' del cuerpo de la petición
         const { head_commit } = req.body;
 
+        // Verificamos si existe head_commit
+        if (!head_commit) {
+            throw new Error('No se recibió el objeto "head_commit" en el body.');
+        }
+
         // Extraemos los datos relevantes del objeto 'head_commit'
-        const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit;
+        const { id = '', message = '', timestamp = '', url = '', author = {}, committer = {}, added = [], removed = [], modified = [] } = head_commit;
 
         // Creamos un objeto 'Date' a partir del timestamp del commit
         const date = new Date(timestamp);
@@ -31,7 +41,7 @@ export const readHookPush = async (req, res) => {
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
         await client.messages.create({
-            body: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
+            body: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
             from: '+15076046986',
             to: '+51918635054'
         });
@@ -44,19 +54,20 @@ export const readHookPush = async (req, res) => {
     } catch (error) {
         // En caso de error, mostramos un mensaje por consola y respondemos con un estado 500 (Internal Server Error)
         console.error('Ocurrió un error al enviar el mensaje:', error);
-        res.status(500).end();
+        res.status(200).end();
     }
 };
+
 
 
 
 //Revisar eso
 //comentario
 /*export const readHookPush = async (req, res) => {
-    const { head_commit } = req.body; // obtener solo el objeto head_commit del body
-    const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit; // desestructurar los datos del objeto head_commit
+    //const { head_commit } = req.body; // obtener solo el objeto head_commit del body
+    //const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit; // desestructurar los datos del objeto head_commit
 
-    console.log({ id, message, timestamp, url, author, committer, added, removed, modified }); // imprimir los datos filtrados
+    console.log("Conectado"); // imprimir los datos filtrados
 
     res.status(200).json({ success: true }).end();
 };*/
