@@ -15,8 +15,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: {...cred}
             })
+        }),
+        createTask: builder.mutation({
+            query: cred => ({
+                url: 'createTask/',
+                method: 'POST',
+                body: {...cred}
+            })
         })
     })
 })
 
-export const { useLoginMutation, useRegisterMutation } = authApiSlice
+export const { useLoginMutation, useRegisterMutation, useCreateTaskMutation } = authApiSlice
