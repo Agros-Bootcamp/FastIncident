@@ -1,69 +1,55 @@
 import twilio from 'twilio'
 import sgMail from '@sendgrid/mail';
 //
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 export const readHookPush = async (req, res) => {
     try {
-        // Obtenemos el objeto 'head_commit' del cuerpo de la petición
         const { head_commit } = req.body;
-        // Verificamos si existe head_commit
+
         if (!head_commit) {
             console.log('Conexión exitosa.');
             return res.status(200).end();
         }
-        if (req.body != null && head_commit != null) {
-            const { timestamp, url, committer } = head_commit;
 
-            // Creamos un objeto 'Date' a partir del timestamp del commit
-            const date = new Date(timestamp);
+        const { timestamp, url, committer } = head_commit;
+        const date = new Date(timestamp);
+        const formattedDate = date.toLocaleString('es-PE', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+        });
 
-            // Configuramos las opciones para dar formato a la fecha y hora
-            const options = {
-                weekday: 'long', // El nombre completo del día de la semana (por ejemplo, "domingo")
-                year: 'numeric', // El año con 4 dígitos (por ejemplo, "2023")
-                month: 'long', // El nombre completo del mes (por ejemplo, "abril")
-                day: 'numeric', // El número del día del mes (por ejemplo, "09")
-                hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
-                minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
-            };
-            // Convertimos la fecha a un string con el formato configurado
-            const formattedDate = date.toLocaleString('es-PE', options);
-            // Enviamos el mensaje de texto con Twilio
-            const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+        const messageBody = `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`;
 
-            await client.messages.create({
-                body: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
-                from: '+15076046986',
-                to: '+51918635054'
-            });
-            //
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-            const msg = {
-                to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
-                from: 'suarezmontezacristhian@gmail.com',
-                subject: 'Notificación de Webhook de Github',
-                text: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
-                html: `<p>${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: <a href="${url}">${url}</a></p>`
-            }
-            sgMail
-                .send(msg)
-                .then(() => {
-                    console.log('Email sent')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-            //
-            console.log({ timestamp, url, committer });
-            // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
-            console.log('Mensaje enviado correctamente.');
-        }
+        const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+        await client.messages.create({
+            body: messageBody,
+            from: '+15076046986',
+            to: '+51918635054'
+        });
+        console.log({ timestamp, url, committer });
+
+        const msg = {
+            to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
+            from: 'suarezmontezacristhian@gmail.com',
+            subject: 'Notificación de Webhook de Github',
+            text: messageBody,
+            html: `<p>${messageBody}</p>`
+        };
+
+        await sgMail.send(msg);
+        console.log('Mensaje enviado correctamente.');
         res.status(200).json(req.body).end();
     } catch (error) {
-        // En caso de error, mostramos un mensaje por consola y respondemos con un estado 500 (Internal Server Error)
         console.error('Ocurrió un error al enviar el mensaje:', error);
         res.status(500).end();
     }
 };
+
 
 
 
