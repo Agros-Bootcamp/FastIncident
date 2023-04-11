@@ -41,8 +41,7 @@ export const readHookPush = async (req, res) => {
                 to: 'cristhianperezroncal@gmail.com', // Change to your recipient
                 from: 'suarezmontezacristhian@gmail.com', // Change to your verified sender
                 subject: 'Sending with SendGrid is Fun',
-                text: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
-                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                text: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`
             }
             sgMail
                 .send(msg)
