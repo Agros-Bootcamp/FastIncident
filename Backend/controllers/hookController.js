@@ -1,5 +1,5 @@
 import twilio from 'twilio'
-
+import sgMail from '@sendgrid/mail';
 //
 export const readHookPush = async (req, res) => {
     try {
@@ -35,6 +35,24 @@ export const readHookPush = async (req, res) => {
                 from: '+15076046986',
                 to: '+51918635054'
             });
+
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+            const msg = {
+                to: 'cristhianperezroncal@gmail.com', // Change to your recipient
+                from: 'suarezmontezacristhian@gmail.com', // Change to your verified sender
+                subject: 'Sending with SendGrid is Fun',
+                text: `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
+                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            }
+            sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+
             console.log({ timestamp, url, committer });
             // Mostramos un mensaje por consola para indicar que se ha enviado el mensaje de texto correctamente
             console.log('Mensaje enviado correctamente.');
