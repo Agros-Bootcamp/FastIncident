@@ -35,7 +35,7 @@ export const readHookPush = async (req, res) => {
                 from: '+15076046986',
                 to: '+51918635054'
             });
-
+            //
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
                 to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
