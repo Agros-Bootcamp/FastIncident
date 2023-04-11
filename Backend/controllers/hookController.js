@@ -64,8 +64,42 @@ export const readHookPush = async (req, res) => {
 
 
 export const readHookIssues = async (req, res) => {
-    console.log(req.body);
-    res.status(200).json(req.body).end();
+
+    //Extraemos los apartados que nos interesan de la peticion
+    const {issue, repository} = req.body
+
+    // Creamos un objeto 'Date' a partir del timestamp del commit
+    const date = new Date(timestamp);
+
+    // Configuramos las opciones para dar formato a la fecha y hora
+    const options = {
+        weekday: 'long', // El nombre completo del día de la semana (por ejemplo, "domingo")
+        year: 'numeric', // El año con 4 dígitos (por ejemplo, "2023")
+        month: 'long', // El nombre completo del mes (por ejemplo, "abril")
+        day: 'numeric', // El número del día del mes (por ejemplo, "09")
+        hour: 'numeric', // La hora en formato de 12 horas (por ejemplo, "03" o "11")
+        minute: 'numeric' // Los minutos (por ejemplo, "05" o "37")
+    };
+
+    // Convertimos la fecha a un string con el formato configurado
+    const formattedDate = date.toLocaleString('es-PE', options);
+
+    const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
+    await client.messages.create({
+        body: `Ha aparecido un nuevo issue en el repositorio ${repository.name} llamado ${issue.title}, reportado por ${issue.user.login}, con fecha de ${formattedDate}`,
+        from: '+15076046986',
+        to: '+51918635054'
+    });
+
+    
+
+    // console.log(issue.user.login)
+    // console.log(issue.title)
+    // console.log(repository.name)
+    // console.log(issue.created_at)
+
+    res.status(200).json(req.body)
 };
 
 
