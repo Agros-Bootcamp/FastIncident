@@ -38,10 +38,11 @@ export const readHookPush = async (req, res) => {
 
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
-                to: 'cristhianperezroncal@gmail.com', // Change to your recipient
-                from: 'suarezmontezacristhian@gmail.com', // Change to your verified sender
+                to: 'cristhianperezroncal@gmail.com',
+                from: 'suarezmontezacristhian@gmail.com',
                 subject: 'Sending with SendGrid is Fun',
-                text: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`
+                text: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
+                html: `<p>${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: <a href="${url}">${url}</a></p>`
             }
             sgMail
                 .send(msg)
