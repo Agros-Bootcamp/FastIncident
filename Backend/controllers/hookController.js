@@ -38,9 +38,9 @@ export const readHookPush = async (req, res) => {
 
             sgMail.setApiKey(process.env.SENDGRID_API_KEY)
             const msg = {
-                to: 'cristhianperezroncal@gmail.com',
+                to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
                 from: 'suarezmontezacristhian@gmail.com',
-                subject: 'Sending with SendGrid is Fun',
+                subject: 'Notificación de Webhook de Github',
                 text: `${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`,
                 html: `<p>${committer.name} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: <a href="${url}">${url}</a></p>`
             }
