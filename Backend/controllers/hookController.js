@@ -6,15 +6,10 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const readHookPush = async (req, res) => {
     try {
         const { head_commit } = req.body;
-
-        if (!head_commit) {
-            console.log('Conexión exitosa.');
-            return res.status(200).end();
-        }
+        if (!head_commit) return res.status(200).end();
 
         const { timestamp, url, committer } = head_commit;
-        const date = new Date(timestamp);
-        const formattedDate = date.toLocaleString('es-PE', {
+        const formattedDate = new Date(timestamp).toLocaleString('es-PE', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -23,14 +18,11 @@ export const readHookPush = async (req, res) => {
             minute: 'numeric'
         });
 
-        const messageBody = `${committer.name || ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`;
+        const messageBody = `${committer?.name ?? ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`;
 
-        const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
-        await client.messages.create({
-            body: messageBody,
-            from: '+15076046986',
-            to: '+51918635054'
-        });
+        const client = twilio();
+        const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
+        await client.messages.create(msgOpts);
         console.log({ timestamp, url, committer });
 
         const msg = {
@@ -40,15 +32,15 @@ export const readHookPush = async (req, res) => {
             text: messageBody,
             html: `<p>${messageBody}</p>`
         };
-
         await sgMail.send(msg);
         console.log('Mensaje enviado correctamente.');
-        res.status(200).json(req.body).end();
+        return res.status(200).json(req.body).end();
     } catch (error) {
         console.error('Ocurrió un error al enviar el mensaje:', error);
-        res.status(500).end();
+        return res.status(500).end();
     }
 };
+
 
 
 
