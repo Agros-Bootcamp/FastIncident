@@ -7,7 +7,11 @@ export const readHookPush = async (req, res) => {
     try {
         console.log(req.body)
         const { head_commit, repository, pusher, commits } = req.body;
-        const commitsBody = commits.map(commitBody => commitBody.message).join("   ");
+        //const commitsBody = commits.map(commitBody => commitBody.message);
+
+        const commitsBody = commits.map(commitBody, index => `Mensaje del commit ${index + 1}: $commitBody.message{}`)
+
+
         if (!head_commit) {
             console.log('Conexión Exitosa')
             return res.status(200).end()
@@ -29,7 +33,7 @@ export const readHookPush = async (req, res) => {
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
         const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
         //await client.messages.create(msgOpts);
-        console.log({ timestamp, url, committer });
+        console.log(messageBody);
 
         const msg = {
             to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
