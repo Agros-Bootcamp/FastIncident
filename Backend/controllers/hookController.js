@@ -5,10 +5,13 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const readHookPush = async (req, res) => {
     try {
-        const { head_commit } = req.body;
-        if (!head_commit) return res.status(200).end();
+        const { connectionPush } = req.body;
+        if (!connectionPush) {
+            console.log('Conexión Exitosa')
+            return res.status(200).end()
+        };
 
-        const { timestamp, url, committer } = head_commit;
+        const { timestamp, url, committer } = req.body;
         const formattedDate = new Date(timestamp).toLocaleString('es-PE', {
             weekday: 'long',
             year: 'numeric',
@@ -47,33 +50,58 @@ export const readHookPush = async (req, res) => {
 
 export const readHookIssues = async (req, res) => {
 
-    const { action, comment, issue, repository, sender } = req.body;
+    try {
+        console.log(req.body)
+        const { connectionIssue } = req.body;
+        console.log(connectionIssue)
+        if (!connectionIssue) {
+            console.log('Conexion exitosa')
+            return res.status(200).end()
+        }
 
-    const issueLabelString = issue.labels.map(label => label.name).join("   ");
+        const { action, comment, issue, repository, sender } = req.body;
 
-    const assigneeString = issue.assignees.map(assignee => assignee.login).join("   ");
+        const issueLabelString = issue.labels.map(label => label.name).join("   ");
 
-    const message = `El usuario ${sender.login} ${action === 'opened' ? 'creó un nuevo' : action === 'closed' ? 'cerró el' : action === 'created' ? 'realizó un comentario en el' : 'realizó una acción en el'} Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
-        `Repositorio: ${repository.name}\n` +
-        `Asignado a: ${assigneeString}\n` +
-        `Etiqueta(s): ${issueLabelString}\n` +
-        `Comentario: ${action === 'created' ? comment.body : issue.body}\n` +
-        `Creado por: ${issue.user.login}\n` +
-        `Issue número: ${issue.number}\n` +
-        `Número de comentarios: ${issue.comments}\n` +
-        `Issues abiertos: ${repository.open_issues}\n`;
+        const assigneeString = issue.assignees.map(assignee => assignee.login).join("   ");
 
-    console.log(message);
+        const messageBody = `El usuario ${sender.login} ${action === 'opened' ? 'creó un nuevo' : action === 'closed' ? 'cerró el' : action === 'created' ? 'realizó un comentario en el' : 'realizó una acción en el'} Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
+            `Repositorio: ${repository.name}\n` +
+            `Asignado a: ${assigneeString}\n` +
+            `Etiqueta(s): ${issueLabelString}\n` +
+            `Comentario: ${action === 'created' ? comment.body : issue.body}\n` +
+            `Creado por: ${issue.user.login}\n` +
+            `Issue número: ${issue.number}\n` +
+            `Número de comentarios: ${issue.comments}\n` +
+            `Issues abiertos: ${repository.open_issues}\n`;
 
-    /*const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+        console.log(messageBody);
 
-    await client.messages.create({
-        body: message,
-        from: '+15076046986',
-        to: '+51918635054'
-    });*/
+        const msg = {
+            to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
+            from: 'suarezmontezacristhian@gmail.com',
+            subject: 'Notificación de Webhook de Github',
+            text: messageBody,
+            html: `<p>${messageBody}</p>`
+        };
+        await sgMail.send(msg);
+        console.log('Mensaje enviado correctamente.');
+        /*const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+    
+        await client.messages.create({
+            body: message,
+            from: '+15076046986',
+            to: '+51918635054'
+        });*/
 
-    res.status(200).json(req.body);
+        res.status(200).json(req.body).end();
+
+    } catch (error) {
+        console.error('Ocurrió un error al enviar el mensaje:', error);
+        return res.status(500).end();
+    }
+
+
 
 };
 
