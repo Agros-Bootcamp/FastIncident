@@ -5,6 +5,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const readHookPush = async (req, res) => {
     try {
+        console.log(req.body)
         const { ref } = req.body;
         if (!ref) {
             console.log('Conexión Exitosa')
@@ -25,7 +26,7 @@ export const readHookPush = async (req, res) => {
 
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
         const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
-        await client.messages.create(msgOpts);
+        //await client.messages.create(msgOpts);
         console.log({ timestamp, url, committer });
 
         const msg = {
