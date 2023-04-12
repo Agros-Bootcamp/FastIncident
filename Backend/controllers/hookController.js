@@ -28,7 +28,7 @@ export const readHookPush = async (req, res) => {
         });
 
         const messageBody = `${committer?.name ?? ''} realizó un push al repositorio de ${repository.name} el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url} , detalles:\n` +
-            `Mensaje del(os) commits: ${commitsBody}`;
+            `${commitsBody}`;
 
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
         const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
