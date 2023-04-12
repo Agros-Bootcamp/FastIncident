@@ -1,6 +1,6 @@
 import twilio from 'twilio'
 import sgMail from '@sendgrid/mail';
-//
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const readHookPush = async (req, res) => {
