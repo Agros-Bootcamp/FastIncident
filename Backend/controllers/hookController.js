@@ -6,10 +6,10 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const readHookPush = async (req, res) => {
     try {
         const { connectionPush } = req.body;
-        if (!connectionPush) {
+        /*if (!connectionPush) {
             console.log('Conexión Exitosa')
             return res.status(200).end()
-        };
+        };*/
 
         const { timestamp, url, committer } = req.body;
         const formattedDate = new Date(timestamp).toLocaleString('es-PE', {
