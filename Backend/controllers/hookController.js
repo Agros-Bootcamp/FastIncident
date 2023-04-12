@@ -9,7 +9,7 @@ export const readHookPush = async (req, res) => {
         const { head_commit, repository, pusher, commits } = req.body;
         //const commitsBody = commits.map(commitBody => commitBody.message);
 
-        const commitsBody = commits.map(commitBody, index => `Mensaje del commit ${index + 1}: $commitBody.message{}`)
+        const commitsBody = commits.map((commitBody, index) => `Mensaje del commit ${index + 1}: ${commitBody.message}`)
 
 
         if (!head_commit) {
