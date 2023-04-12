@@ -32,7 +32,7 @@ const createJWT = (data) => {
             "title_rol_user": data.title_rol_user
         }
     }, process.env.ACCESS_TOKEN,
-        { expiresIn: '30m' })
+        { expiresIn: '10s' })
 
     const refreshToken = jwt.sign(
         { 'pk_id_user': data.pk_id_user },
@@ -89,8 +89,12 @@ export const refreshToken = async (req, res) => {
             //Consulta la informacion del usuario
             const user = await tb_user.findByPk(actualRefreshToken.fk_id_refresh_token)
 
+            const role = await tb_rol_user.findByPk(user.fk_id_rol_user)
+
+            const data = {...user.dataValues, title_rol_user:role.title_rol_user}
+
             //Crea nuevo JWT
-            const newJWT = createJWT(user)
+            const newJWT = createJWT(data)
 
             const newRefreshToken = await tb_refresh_tokens.create({
                 refresh_token: newJWT.refreshToken,

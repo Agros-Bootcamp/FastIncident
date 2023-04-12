@@ -1,13 +1,14 @@
 import { tb_type_incident } from "../model/userProfile.js";
 
 export const registerTypeIncident = async (req, res) => {
-    const { title_type_incident, description_type_incident, penalty_incident, returned_tokens } = req.body
+    // const { title_type_incident, description_type_incident, penalty_incident, returned_tokens } = req.body
     try {
         const result = await tb_type_incident.create({
-            title_type_incident,
-            description_type_incident,
-            penalty_incident,
-            returned_tokens
+            // title_type_incident,
+            // description_type_incident,
+            // penalty_incident,
+            // returned_tokens
+            ...req.body
         })
         result && res.json(result)
     } catch (error) {

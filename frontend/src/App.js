@@ -8,7 +8,9 @@ import RegisterMembers from "./pages/private/Admin/RegisterMembers"
 
 import { LoginAndRegisterException, UserPrivateRoute } from './pages/config/userConfig'
 import { AdminPrivateRoute } from "./pages/config/adminConfig"
-
+import RegisterTasks from "./pages/private/Admin/RegisterTasks"
+import RegisterIncidents from "./pages/private/Admin/RegisterIncidents"
+//comentario 12
 const App = () => {
   return (
     <BrowserRouter>
@@ -30,7 +32,9 @@ const App = () => {
           <Route element={<AdminPrivateRoute />} >
 
             <Route path="/admin/register" element={<RegisterMembers />} />
-            
+            <Route path="/admin/createTask" element={<RegisterTasks />} />
+            <Route path="/admin/reportIncident" element={<RegisterIncidents />} />
+
           </Route>
 
         </Route>
