@@ -5,11 +5,11 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const readHookPush = async (req, res) => {
     try {
-        const { connectionPush } = req.body;
-        /*if (!connectionPush) {
+        const { ref } = req.body;
+        if (!ref) {
             console.log('Conexión Exitosa')
             return res.status(200).end()
-        };*/
+        };
 
         const { timestamp, url, committer } = req.body;
         const formattedDate = new Date(timestamp).toLocaleString('es-PE', {
@@ -51,15 +51,19 @@ export const readHookPush = async (req, res) => {
 export const readHookIssues = async (req, res) => {
     //
     try {
+
+
+
+        const { action, comment, issue, repository, sender } = req.body;
+
         console.log(req.body)
-        const { connectionIssue } = req.body;
-        console.log(connectionIssue)
-        if (!connectionIssue) {
+
+        if (!action) {
             console.log('Conexion exitosa')
             return res.status(200).end()
         }
 
-        const { action, comment, issue, repository, sender } = req.body;
+        console.log(action)
 
         const issueLabelString = issue.labels.map(label => label.name).join("   ");
 
