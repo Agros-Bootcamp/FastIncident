@@ -1,5 +1,6 @@
 import { tb_incident } from "../model/userProfile.js";
 
+//comentario
 export const registerIncident = async (req, res) => {
     // const { title_incident, description_incident, start_date_incident, end_date_incident, status_incident, fk_id_task, fk_id_type_incident } = req.body
     try {
