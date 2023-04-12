@@ -45,25 +45,44 @@ export const readHookPush = async (req, res) => {
 
 
 
-
-
-//Revisar eso
-//comentario
-/*export const readHookPush = async (req, res) => {
-    //const { head_commit } = req.body; // obtener solo el objeto head_commit del body
-    //const { id, message, timestamp, url, author, committer, added, removed, modified } = head_commit; // desestructurar los datos del objeto head_commit
-
-    console.log("Conectado"); // imprimir los datos filtrados
-
-    res.status(200).json({ success: true }).end();
-};*/
-
-
-
 export const readHookIssues = async (req, res) => {
 
+    const { action, comment, issue, repository, sender } = req.body;
+
+    const issueLabelString = issue.labels.map(label => label.name).join("   ");
+
+    const assigneeString = issue.assignees.map(assignee => assignee.login).join("   ");
+
+    const message = `El usuario ${sender.login} ${action === 'opened' ? 'creó un nuevo' : action === 'closed' ? 'cerró el' : action === 'created' ? 'realizó un comentario en el' : 'realizó una acción en el'} Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
+        `Repositorio: ${repository.name}\n` +
+        `Asignado a: ${assigneeString}\n` +
+        `Etiqueta(s): ${issueLabelString}\n` +
+        `Comentario: ${action === 'created' ? comment.body : issue.body}\n` +
+        `Creado por: ${issue.user.login}\n` +
+        `Issue número: ${issue.number}\n` +
+        `Número de comentarios: ${issue.comments}\n` +
+        `Issues abiertos: ${repository.open_issues}\n`;
+
+    console.log(message);
+
+    /*const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
+    await client.messages.create({
+        body: message,
+        from: '+15076046986',
+        to: '+51918635054'
+    });*/
+
+    res.status(200).json(req.body);
+
+};
+
+
+
+/*export const readHookIssues = async (req, res) => {
+
     //Extraemos los apartados que nos interesan de la peticion
-    const {issue, repository} = req.body
+    /*const { issue, repository } = req.body
 
     // Creamos un objeto 'Date' a partir del timestamp del commit
     const date = new Date(timestamp);
@@ -89,15 +108,60 @@ export const readHookIssues = async (req, res) => {
         to: '+51918635054'
     });
 
-    
-
     // console.log(issue.user.login)
     // console.log(issue.title)
     // console.log(repository.name)
     // console.log(issue.created_at)
+const { action, comment, issue, repository, sender } = req.body
 
-    res.status(200).json(req.body)
-};
+
+
+console.log(req.body)
+
+issue.labels.forEach(label => console.log(label.name));
+//issue.assignees.forEach(assignee => assignee.login);
+
+const issueLabelNames = issue.labels.map(label => label.name);
+const issueLabelString = issueLabelNames.join("   ");
+
+//console.log(issue.assignees)
+const assigneeLogins = issue.assignees.map(assignee => assignee.login);
+const assigneeString = assigneeLogins.join("   ");
+
+if (action === 'created')
+    console.log(`El usuario ${sender.login} realizo un comentario en el Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
+        `Repositorio: ${repository.name}\n` +
+        `Asignado a: ${assigneeString}\n` +
+        `Etiqueta(s): ${issueLabelString}\n` +
+        `Comentario: ${comment.body}\n` +
+        `Creado por: ${issue.user.login}\n` +
+        `Issue número: ${issue.number}\n` +
+        `Estado del Issue: ${issue.state}\n` +
+        `Número de comentarios: ${issue.comments}\n` +
+        `Issues abiertos: ${repository.open_issues}\n`)
+if (action === 'opened')
+    console.log(`El usuario ${sender.login} creó un nuevo Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
+        `Repositorio: ${repository.name}\n` +
+        `Asignado a: ${assigneeString}\n` +
+        `Etiqueta(s): ${issueLabelString}\n` +
+        `Comentario: ${issue.body}\n` +
+        `Creado por: ${issue.user.login}\n` +
+        `Issue número: ${issue.number}\n` +
+        `Número de comentarios: ${issue.number}\n` +
+        `Issues abiertos: ${repository.open_issues}\n`)
+if (action === 'closed')
+    console.log(`El usuario ${sender.login} cerró el Issue llamado ${issue.title}, lo puede ver en el siguiente enlace ${issue.html_url}: \n` +
+        `Repositorio: ${repository.name}\n` +
+        `Asignado a: ${assigneeString}\n` +
+        `Etiqueta(s): ${issueLabelString}\n` +
+        `Comentario: ${issue.body}\n` +
+        `Creado por: ${issue.user.login}\n` +
+        `Issue número: ${issue.number}\n` +
+        `Número de comentarios: ${issue.number}\n` +
+        `Issues abiertos: ${repository.open_issues}\n`)
+
+res.status(200).json(req.body)
+};*/
 
 
 /*
