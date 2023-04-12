@@ -6,12 +6,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const readHookPush = async (req, res) => {
     try {
         console.log(req.body)
-        const { head_commit, repository, pusher, commits } = req.body;
-        //const commitsBody = commits.map(commitBody => commitBody.message);
-
-        const commitsBody = commits.map((commitBody, index) => `Mensaje del commit ${index + 1}: ${commitBody.message}`)
-
-
+        const { head_commit } = req.body;
         if (!head_commit) {
             console.log('Conexión Exitosa')
             return res.status(200).end()
@@ -27,13 +22,12 @@ export const readHookPush = async (req, res) => {
             minute: 'numeric'
         });
 
-        const messageBody = `${committer?.name ?? ''} realizó un push al repositorio de ${repository.name} el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url} , detalles:\n` +
-            `Mensaje del(os) commits: ${commitsBody}`;
+        const messageBody = `${committer?.name ?? ''} realizó un push al repositorio de FastIncident el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}`;
 
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
         const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
         //await client.messages.create(msgOpts);
-        console.log(messageBody);
+        console.log({ timestamp, url, committer });
 
         const msg = {
             to: ['cristhianperezroncal@gmail.com', 'dariof_0504@hotmail.com'],
@@ -58,7 +52,11 @@ export const readHookPush = async (req, res) => {
 export const readHookIssues = async (req, res) => {
     //
     try {
+
+
+
         const { action, comment, issue, repository, sender } = req.body;
+
         console.log(req.body)
 
         if (!action) {
@@ -79,7 +77,6 @@ export const readHookIssues = async (req, res) => {
             `Comentario: ${action === 'created' ? comment.body : issue.body}\n` +
             `Creado por: ${issue.user.login}\n` +
             `Issue número: ${issue.number}\n` +
-            `Estado: ${issue.state}\n` +
             `Número de comentarios: ${issue.comments}\n` +
             `Issues abiertos: ${repository.open_issues}\n`;
 
@@ -113,6 +110,4 @@ export const readHookIssues = async (req, res) => {
 
 };
 
-
-
-
+//comentario
