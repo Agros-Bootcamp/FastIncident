@@ -26,7 +26,7 @@ export const readHookPush = async (req, res) => {
             hour: 'numeric',
             minute: 'numeric'
         });
-
+        //
         const messageBody = `${committer?.name ?? ''} realizó un push al repositorio de ${repository.name} el ${formattedDate}, puedes revisarlo en el siguiente enlace: ${url}\nDetalles:\n` +
             `${commitsBody}`;
 
