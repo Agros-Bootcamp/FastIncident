@@ -32,7 +32,7 @@ export const readHookPush = async (req, res) => {
 
         const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
         const msgOpts = { body: messageBody, from: '+15076046986', to: '+51918635054' };
-        //await client.messages.create(msgOpts);
+        await client.messages.create(msgOpts);
         console.log(messageBody);
 
         const msg = {
@@ -50,8 +50,6 @@ export const readHookPush = async (req, res) => {
         return res.status(500).end();
     }
 };
-
-
 
 
 
@@ -108,9 +106,6 @@ export const readHookIssues = async (req, res) => {
         console.error('Ocurrió un error al enviar el mensaje:', error);
         return res.status(500).end();
     }
-
-
-
 };
 
 
