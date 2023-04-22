@@ -58,7 +58,7 @@ const createJWT = (data) => {
     }
 }
 
-export const authTokens = async (req, res, next) => {
+export const authTokens = async (req, res) => {
     
     const { password_user } = req.body
 

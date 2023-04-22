@@ -3,7 +3,6 @@ import cors from 'cors'
 import {config} from 'dotenv'
 import { loginRouter } from './routes/login.js'
 import { registerRoute } from './routes/register.js'
-import { protectedRoutes } from './routes/protectedRoutes.js'
 
 config()
 
@@ -13,4 +12,3 @@ app.use(cors())
 app.use(express.json())
 app.use(loginRouter)
 app.use(registerRoute)
-app.use(protectedRoutes)

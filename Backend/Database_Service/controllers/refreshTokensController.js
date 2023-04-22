@@ -15,7 +15,7 @@ export const manipulateRefreshToken = async (req, res) => {
                 }
             })
             
-            switch (req.mehod) {
+            switch (req.method) {
                 case 'DELETE':
                     item.destroy()
                     break

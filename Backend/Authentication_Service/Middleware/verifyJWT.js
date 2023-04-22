@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken'
 
 export const verifyJWT = (req, res, next) => {
-    const authHeaders = req.headers.authorization || req.headers.Authorization;
-    if (!authHeaders?.startsWith('Bearer')) return res.sendStatus(401);
-    const token = authHeaders.split(' ')[1]
+    
+    const { token } = req.body
 
     jwt.verify(
         token,
