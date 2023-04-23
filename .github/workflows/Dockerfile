@@ -1,2 +1,2 @@
 FROM nginx:1.19-alpine
-ADD README.md /usr/share/nginx/README
+ADD index.html /usr/share/nginx/html
