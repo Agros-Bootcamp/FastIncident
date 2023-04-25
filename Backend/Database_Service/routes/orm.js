@@ -10,3 +10,7 @@ ormRoute.all('/users/:action', mainController)
         .all('/typeIncident/:action', mainController)
         .all('/incidents/:action', mainController)
         .all('/refresh', manipulateRefreshToken)
+        .all('/test',(req,res)=>{
+                console.log(req.body)
+                res.json(req.body)
+        })
