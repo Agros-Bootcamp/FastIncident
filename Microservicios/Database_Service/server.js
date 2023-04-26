@@ -1,4 +1,4 @@
-import sqlDB from "../database/database.js"
+import sqlDB from "../../Backend/database/database.js"
 import { app } from "./app.js"
 
 const main = async () => {

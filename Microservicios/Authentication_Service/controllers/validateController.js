@@ -23,7 +23,7 @@ export const validate_access = async (req,res) => {
             }
         })
 
-        if (qsRole.data.pk_id_rol_user == qsUser.data.fk_id_rol_user) return res.json(true)
+        if (qsRole.data.pk_id_rol_user == qsUser.data.fk_id_rol_user) return res.json({match:true})
         else return res.json('No tiene acceso')
 
     } catch (error) {

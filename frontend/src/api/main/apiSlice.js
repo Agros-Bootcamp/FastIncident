@@ -40,7 +40,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
 
     //En caso exista el error de prohibicion, entonces el token de acceso caduco
-    if ( result?.error?.originalStatus === 403 ){
+    if ( result?.error?.originalStatus === 403 || result?.data?.status_code === 403 ){
 
         //Solicitamos de nuestros estados la informacion del token de refresco
         const {refreshToken} = api.getState().auth

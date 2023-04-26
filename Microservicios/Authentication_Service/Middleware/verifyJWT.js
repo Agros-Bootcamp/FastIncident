@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken'
+import { config } from 'dotenv'
+
+config()
 
 export const verifyJWT = (req, res, next) => {
     
@@ -8,7 +11,7 @@ export const verifyJWT = (req, res, next) => {
         token,
         process.env.ACCESS_TOKEN,
         (err, decoded) => {
-            if (err) return res.sendStatus(403)
+            if (err) return res.json(false).sendStatus(403)
             req.UserInfo = {
                 ...decoded.UserInfo
             }

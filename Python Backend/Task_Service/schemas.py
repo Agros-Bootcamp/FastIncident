@@ -1,5 +1,6 @@
 from typing import List
 from pydantic import BaseModel
+from fastapi import Request
 
 class Task(BaseModel):
     fk_id_user:str
@@ -16,8 +17,3 @@ class Task(BaseModel):
 class UpdateRequest(BaseModel):
     field:str
     payload:str
-
-class Method(BaseModel):
-    all:str
-    byPK:str
-    byField:str
