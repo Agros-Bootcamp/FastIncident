@@ -5,7 +5,7 @@ import { setTokens, logOut } from "../authSlice";
 
 
 //Con la libreria de AXIOS creamos una funcion para realizar peticion POST al endpoint que regenera los tokens de autentificacion
-const fetchUpdateTokens = async (token) => {
+export const fetchUpdateTokens = async (token) => {
     try {
         const response = await axios.post('http://localhost:4000/refreshToken/', token)
         if(response) return response
@@ -18,7 +18,7 @@ const fetchUpdateTokens = async (token) => {
 //Creamos una plantilla base para las peticiones hacia el servidor
 const baseQuery = fetchBaseQuery({
     //Establecemos la URL a la cual se realizaran las peticiones
-    baseUrl: 'http://localhost:4000/',
+    baseUrl: 'http://localhost:4002/',
     //Usamos prepareHeaders para que los headers de las peticiones puedan ser modificados dinamicamente segun existan los tokens de acceso
     prepareHeaders: (headers, { getState }) => {
         //Con getState solicitamos el estado del token de acceso

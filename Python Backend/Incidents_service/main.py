@@ -40,8 +40,13 @@ def get_by_pk(pk:str, Authorization:Optional[str]=Header(None)):
     r = requests.get('http://localhost:4001/incidents/byPK',json={"pk_id_task":pk})
     return r.json()
 
+@app.get('/incidents/allByFk/{payload}', status_code=status.HTTP_202_ACCEPTED)
+def get_by_method( payload:str ):
+    r = requests.get('http://localhost:4001/incidents/allByFk',json={"field":"fk_id_task","payload":payload})
+    return r.json()
+
 @app.post('/incidents/create', status_code=status.HTTP_202_ACCEPTED)
-def create_task(request:Incident, Authorization:Optional[str]=Header(None)):
+def create_incident(request:Incident, Authorization:Optional[str]=Header(None)):
     result = validate(Authorization)
     if not result.json():
         return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
@@ -49,7 +54,7 @@ def create_task(request:Incident, Authorization:Optional[str]=Header(None)):
     return r.json()
 
 @app.patch('/incidents/update/{pk}', status_code=status.HTTP_202_ACCEPTED)
-def update_task(request:UpdateRequest, pk:str, Authorization:Optional[str]=Header(None)):
+def update_incident(request:UpdateRequest, pk:str, Authorization:Optional[str]=Header(None)):
     result = validate(Authorization)
     if not result.json():
         return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
@@ -59,7 +64,7 @@ def update_task(request:UpdateRequest, pk:str, Authorization:Optional[str]=Heade
     return r.json()
 
 @app.delete('/tasks/delete/{pk}', status_code=status.HTTP_202_ACCEPTED)
-def destroy_task(pk:str, Authorization:Optional[str]=Header(None)):
+def destroy_incident(pk:str, Authorization:Optional[str]=Header(None)):
     result = validate(Authorization)
     if not result.json():
         return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')

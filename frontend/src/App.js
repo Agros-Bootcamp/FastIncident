@@ -11,6 +11,7 @@ import { AdminPrivateRoute } from "./pages/config/adminConfig"
 import RegisterTasks from "./pages/private/Admin/RegisterTasks"
 import RegisterIncidents from "./pages/private/Admin/RegisterIncidents"
 import { NavBar } from "./components/NavBar"
+import { ViewTasks } from "./pages/private/ViewTasks"
 //comentario 12
 const App = () => {
   return (
@@ -29,6 +30,8 @@ const App = () => {
         <Route element={<UserPrivateRoute />} >
           
           <Route path="/Home" element={<Homepage />} />
+
+          <Route path="/Tasks" element={<ViewTasks />} />
 
           <Route element={<AdminPrivateRoute />} >
 

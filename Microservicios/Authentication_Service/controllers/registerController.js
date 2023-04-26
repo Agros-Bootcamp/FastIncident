@@ -2,7 +2,7 @@ import axios from "axios";
 import bcrypt from 'bcrypt'
 
 export const registerUser = async (req, res) => {
-    const { first_name_user, last_name_user, email_user, password_user } = req.body
+    const { first_name_user, last_name_user, email_user, password_user, title_rol_user } = req.body
 
     try {
         const hashedPWD = await bcrypt.hash(password_user, 10)
@@ -12,7 +12,7 @@ export const registerUser = async (req, res) => {
             url: 'http://localhost:4001/rol/byField',
             data: {
                 field: 'title_rol_user',
-                payload: 'Integrante'
+                payload: title_rol_user
             }
         })
 
@@ -28,7 +28,7 @@ export const registerUser = async (req, res) => {
             }
         })
 
-        newUser && res.json(newUser)
+        newUser && res.json(newUser.data)
 
     } catch (error) {
         

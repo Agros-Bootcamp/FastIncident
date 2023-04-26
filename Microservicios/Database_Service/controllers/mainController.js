@@ -45,6 +45,16 @@ const manipulate = async (req, res, info) => {
                     res.json(allItems)
                     break
 
+                case 'allByFk':
+                    const allItemsByFK = await database.findAll({
+                        where: {
+                            [body.field]:body.payload
+                        }
+                    })
+
+                    res.json(allItemsByFK)
+
+                    break
                 default:
                     res.json('No hay un metodo disponible')
                     break

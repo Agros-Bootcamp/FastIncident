@@ -29,7 +29,4 @@ export const validate_access = async (req,res) => {
     } catch (error) {
         res.json(error)
     }
-
-
-
 }

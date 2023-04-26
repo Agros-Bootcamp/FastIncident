@@ -7,8 +7,13 @@ import requests
 
 app=FastAPI()
 
+origins = [
+    "http://localhost:3000"
+]
+
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,6 +41,11 @@ def get_by_method(field:str, payload:str ):
 @app.get('/tasks/{pk}', status_code=status.HTTP_202_ACCEPTED)
 def get_by_pk(pk:str):
     r = requests.get('http://localhost:4001/tasks/byPK',json={"pk_id_task":pk})
+    return r.json()
+
+@app.get('/tasks/allByFk/{payload}', status_code=status.HTTP_202_ACCEPTED)
+def get_by_method( payload:str ):
+    r = requests.get('http://localhost:4001/tasks/allByFk',json={"field":"fk_id_user","payload":payload})
     return r.json()
 
 @app.post('/tasks/create', status_code=status.HTTP_201_CREATED)

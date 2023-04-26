@@ -44,7 +44,7 @@ const createJWT = (data) => {
             "title_rol_user": data.title_rol_user
         }
     }, process.env.ACCESS_TOKEN,
-        { expiresIn: '2s' })
+        { expiresIn: '25m' })
 
     const refreshToken = jwt.sign(
         { 'pk_id_user': data.pk_id_user },
