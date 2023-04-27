@@ -61,7 +61,7 @@ export const validate_admin = async (req,res, next) => {
             method: 'GET',
             data: {
                 field: 'title_rol_user',
-                payload: 'Administrador'
+                payload: process.env.NAME_ADMIN
             }
         })
     
