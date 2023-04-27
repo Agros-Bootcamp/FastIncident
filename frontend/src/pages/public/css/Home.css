@@ -1,0 +1,17 @@
+.mainHome {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    background-color: aqua;
+    margin: 10rem 0;
+    align-items: center;
+    box-sizing: content-box;
+}
+
+.buttonHome {
+    text-decoration: none;
+    margin: 3rem;
+    background-color: aquamarine;
+    padding: 1rem;
+    border-radius: 1rem;
+}

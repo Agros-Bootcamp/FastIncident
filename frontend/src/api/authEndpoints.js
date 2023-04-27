@@ -14,7 +14,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         //Endpoint para crear un usuario, se debe enviar un JSON con los apartados solicitados en el modelo de la base de datos
         register: builder.mutation({
             query: cred => ({
-                url: 'registeruser/',
+                url: 'register/',
                 method: 'POST',
                 body: {...cred}
             })

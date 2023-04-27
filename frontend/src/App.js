@@ -10,10 +10,13 @@ import { LoginAndRegisterException, UserPrivateRoute } from './pages/config/user
 import { AdminPrivateRoute } from "./pages/config/adminConfig"
 import RegisterTasks from "./pages/private/Admin/RegisterTasks"
 import RegisterIncidents from "./pages/private/Admin/RegisterIncidents"
+import { NavBar } from "./components/NavBar"
+import { ViewTasks } from "./pages/private/ViewTasks"
 //comentario 12
 const App = () => {
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -21,13 +24,14 @@ const App = () => {
           
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
 
         </Route>
 
         <Route element={<UserPrivateRoute />} >
           
           <Route path="/Home" element={<Homepage />} />
+
+          <Route path="/Tasks" element={<ViewTasks />} />
 
           <Route element={<AdminPrivateRoute />} >
 
