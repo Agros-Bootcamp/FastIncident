@@ -1,4 +1,4 @@
-import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/dist/query/react";
 import axios from 'axios'
 
 import { setTokens, logOut } from "../authSlice";
