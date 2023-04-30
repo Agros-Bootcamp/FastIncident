@@ -1,9 +1,12 @@
 from fastapi import FastAPI, Header, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import Task, UpdateRequest
-from typing import Optional
 import uvicorn
+from routers import authRequests, getRequest
+from typing import Optional
 import requests
+from starlette.requests import Request
+
+from typing import Annotated
 
 app=FastAPI()
 
@@ -27,59 +30,21 @@ def validate(header:str):
     })
     return r
 
+app.include_router(getRequest.router)
 
-@app.get('/tasks', status_code=status.HTTP_202_ACCEPTED)
-def get_all():
-    r = requests.get('http://localhost:4001/tasks/all')
-    return r.json()
-#ByField
-@app.get('/tasks/byField', status_code=status.HTTP_202_ACCEPTED)
-def get_by_method(field:str, payload:str ):
-    r = requests.get('http://localhost:4001/tasks/byField',json={"field":field,"payload":payload})
-    return r.json()
+@app.middleware("http")
+async def validate_user( request:Request,call_next):
+    response = await call_next(request)
+    try:
+        x = request.headers["Authorization"]
+        result = validate(x)
+        print(result)
+        return response
+    except:
+        print('error')
+        return HTTPException(status_code=status.HTTP_403_FORBIDDEN)
 
-@app.get('/tasks/{pk}', status_code=status.HTTP_202_ACCEPTED)
-def get_by_pk(pk:str):
-    r = requests.get('http://localhost:4001/tasks/byPK',json={"pk_id_task":pk})
-    return r.json()
-
-@app.get('/tasks/allByFk/{payload}', status_code=status.HTTP_202_ACCEPTED)
-def get_by_method( payload:str ):
-    r = requests.get('http://localhost:4001/tasks/allByFk',json={"field":"fk_id_user","payload":payload})
-    return r.json()
-
-@app.post('/tasks/create', status_code=status.HTTP_201_CREATED)
-def create_task(request:Task, auth: Optional[str]=Header(None),     Authorization:Optional[str]=Header(None)):
-    result = validate(Authorization)
-    if not result.json():
-        return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
-    r = requests.post('http://localhost:4001/tasks/default', json=request.dict())
-    return r.json()
-
-@app.patch('/tasks/update/{pk}', status_code=status.HTTP_202_ACCEPTED)
-def update_task(request:UpdateRequest, pk:str, Authorization:Optional[str]=Header(None)):
-    result = validate(Authorization)
-    if not result.json():
-        return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
-    data = {request.field:request.payload}
-
-    r = requests.put('http://localhost:4001/tasks/default', json=dict(data,**{"pk_id_task":pk}))
-    return r.json()
-
-@app.delete('/tasks/delete/{pk}', status_code=status.HTTP_202_ACCEPTED)
-def destroy_task(pk:str,Authorization:Optional[str]=Header(None)):
-    result = validate(Authorization)
-    if not result.json():
-        return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
-    r = requests.delete('http://localhost:4001/tasks/default', json={"pk_id_task":pk})
-    return r.json()
-
-@app.post('/test', status_code=status.HTTP_202_ACCEPTED)
-def test(Authorization:Optional[str]=Header(None)):
-    result = validate(Authorization)
-    if not result.json():
-        return HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Token vencido')
-    return 'no'
+app.include_router(authRequests.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=5000)

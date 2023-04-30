@@ -33,7 +33,7 @@ export const qsUser = async (req, res) => {
     }
 }
 
-const createJWT = (data) => {
+export const createJWT = (data) => {
     //Encriptacion de la informacion del usuario en el JWT
     const accessToken = jwt.sign({
         "UserInfo": {
@@ -80,7 +80,7 @@ export const authTokens = async (req, res) => {
         
         await axios({
             method: 'POST',
-            url: 'http://localhost:4001/refresh/',
+            url: 'http://localhost:4001/refresh/default',
             data: {
                 fk_id_refresh_token: user.pk_id_user,
                 refresh_token: token.refreshToken
@@ -101,4 +101,70 @@ export const authTokens = async (req, res) => {
 
         res.json(token)
     } else return res.json('No coninciden credenciales')
+}
+
+export const refreshTokenController = async (req, res) => {
+    const { pk_id_user } = req.UserInfo
+    const { refreshToken } = req.body
+    
+    try {
+        const actualRefreshToken = await axios({
+            method: 'GET',
+            url: 'http://localhost:4001/refresh/byField',
+            data: {
+                field : 'refresh_token',
+                payload : refreshToken
+            }
+        })
+
+        if (!actualRefreshToken.data) return res.json('No existe Token o ya ha sido utilizado')
+
+        else {
+            const user = await axios({
+                method: 'GET',
+                url: 'http://localhost:4001/users/byPK',
+                data: {
+                    pk_id_user
+                }
+            })
+            
+            const role = await axios({
+                method: 'GET',
+                url: 'http://localhost:4001/rol/byPK',
+                data: {
+                    pk_id_rol_user: user.data.fk_id_rol_user
+                }
+            })
+
+            const data = {
+                ...user.data, title_rol_user: role.data.title_rol_user
+            }
+
+            const newJWT = createJWT(data)
+
+            await axios({
+                method: 'POST',
+                url: 'http://localhost:4001/refresh/default',
+                data: {
+                    fk_id_refresh_token: pk_id_user,
+                    refresh_token: newJWT.refreshToken
+                }
+            })
+
+            await axios({
+                method: 'DELETE',
+                url: 'http://localhost:4001/refresh/default',
+                data: {
+                    id: actualRefreshToken.data.id
+                }
+            })
+
+            res.json(newJWT)
+
+        }
+
+    } catch (error) {
+        res.json(error)
+    }
+
 }

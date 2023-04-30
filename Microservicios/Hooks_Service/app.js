@@ -1,9 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import {config} from 'dotenv'
 import { hookRoute } from './routes/hooks'
-
-config()
 
 export const app = express()
 

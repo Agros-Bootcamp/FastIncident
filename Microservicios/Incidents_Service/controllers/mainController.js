@@ -10,7 +10,7 @@ export const mainController = async (req, res) => {
         url: `http://localhost:4001/tasks/${method=='GET'&&action}`,
         data: {
             ...body,
-            pk_id_task: req.params?.pk
+            pk_id_incident: req.params?.pk
         }
     })
 

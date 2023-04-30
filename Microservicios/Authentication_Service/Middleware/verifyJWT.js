@@ -12,22 +12,34 @@ export const verifyJWT = (req, res, next) => {
         token,
         process.env.ACCESS_TOKEN,
         (err, decoded) => {
-            if (err) return res.json(false).sendStatus(403)
-            req.UserInfo = {
-                ...decoded.UserInfo
+            if (err) {
+                return res.json('works no').status(403)
             }
-            next()
+            if (decoded?.UserInfo) {
+                req.UserInfo = {
+                    ...decoded.UserInfo
+                }
+                return next()
+            }
         }
     )
 }
 
 export const verifyRefreshJWT = (req, res, next) => {
+
     const { refreshToken } = req.body
-    jwt.verify(refreshToken,
+
+    jwt.verify(
+        refreshToken,
         process.env.REFRESH_TOKEN,
         (err, decoded) => {
-            if (err) return res.sendStatus(403)
-            next()
+            if (err) return res.json('No hay acceso').status(403)
+            else {
+                req.UserInfo = {
+                ...decoded
+                }
+                return next()
+            }
         }
     )
 }
@@ -42,11 +54,11 @@ export const internalVerifyJWT = (req, res, next) => {
         token,
         process.env.ACCESS_TOKEN,
         (err, decoded) => {
-            if (err) return res.json(false).sendStatus(403)
+            if (err) return res.json(false).status(403)
             req.UserInfo = {
                 ...decoded.UserInfo
             }
-            next()
+            return next()
         }
     )
 }

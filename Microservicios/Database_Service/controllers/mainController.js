@@ -1,5 +1,5 @@
-import { tb_incident, tb_rol_user, tb_task, tb_type_incident, tb_user } from "../model/userProfile.js";
-import { SchemaIncident, SchemaRolUser, SchemaTask, SchemaTypeIncident, SchemaUser } from "../model/schemas.js";
+import { tb_incident, tb_refresh_tokens, tb_rol_user, tb_task, tb_type_incident, tb_user } from "../model/userProfile.js";
+import { SchemaIncident, SchemaRolUser, SchemaTask, SchemaTypeIncident, SchemaUser, SchemaRefreshToken } from "../model/schemas.js";
 
 class requestParams {
     constructor (database, dataSchema,pk) {
@@ -67,10 +67,13 @@ const manipulate = async (req, res, info) => {
 
             const item = await database.findByPk(pk)
 
+            // !item && res.json('No existe')
+
             switch (method) {
 
                 case 'DELETE':
                     await item.destroy()
+
                     res.json('Item eliminado')
                     break
 
@@ -127,6 +130,12 @@ export const mainController = (req, res) => {
             const incidentsInfo = new requestParams(tb_incident, new SchemaIncident(body,method), body.pk_id_incident)
 
             manipulate(req, res, incidentsInfo)
+            break
+        case 'refresh':
+
+            const refreshTokenInfo = new requestParams(tb_refresh_tokens, new SchemaRefreshToken(body), body.id)
+
+            manipulate(req, res, refreshTokenInfo)
             break
         default:
             res.json('No funciono')

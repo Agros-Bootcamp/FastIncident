@@ -54,7 +54,7 @@ export class SchemaTypeIncident {
 
 export class SchemaRefreshToken {
     constructor (token) {
-        this.id = token.id
+        this.fk_id_refresh_token = token.fk_id_refresh_token
         this.refresh_token = token.refresh_token
     }
 }
