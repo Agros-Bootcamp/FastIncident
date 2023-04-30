@@ -4,6 +4,7 @@ import axios from 'axios'
 
 config()
 
+//Verificacion con req.body
 export const verifyJWT = (req, res, next) => {
     
     const { token } = req.body
@@ -25,6 +26,7 @@ export const verifyJWT = (req, res, next) => {
     )
 }
 
+//Verificacion con req.body
 export const verifyRefreshJWT = (req, res, next) => {
 
     const { refreshToken } = req.body
@@ -44,6 +46,7 @@ export const verifyRefreshJWT = (req, res, next) => {
     )
 }
 
+//Verificacion con headers
 export const internalVerifyJWT = (req, res, next) => {
     
     const authHeaders = req.headers.authorization || req.headers.Authorization;
@@ -63,6 +66,8 @@ export const internalVerifyJWT = (req, res, next) => {
     )
 }
 
+//Middleware anterior valida la informacion del token
+//En caso de ser valido, toma su informacion y valida si tiene acceso segun su rol
 export const validate_admin = async (req,res, next) => {
 
     const { pk_id_user } = req.UserInfo

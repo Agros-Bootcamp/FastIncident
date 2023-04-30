@@ -1,6 +1,6 @@
 import axios from "axios"
 
-
+//Anteriormente se ha validado la informacion con un middleware req.UserInfo
 export const validate_access = async (req,res) => {
     const { role } = req.body
     const { pk_id_user } = req.UserInfo
@@ -24,7 +24,7 @@ export const validate_access = async (req,res) => {
         })
 
         if (qsRole.data.pk_id_rol_user == qsUser.data.fk_id_rol_user) return res.json({match:true})
-        else return res.json('No tiene acceso')
+        else return res.json({match:false})
 
     } catch (error) {
         res.json(error)
