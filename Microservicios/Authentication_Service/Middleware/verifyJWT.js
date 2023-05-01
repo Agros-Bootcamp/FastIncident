@@ -5,28 +5,6 @@ import axios from 'axios'
 config()
 
 //Verificacion con req.body
-export const verifyJWT = (req, res, next) => {
-    
-    const { token } = req.body
-
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN,
-        (err, decoded) => {
-            if (err) {
-                return res.json('works no').status(403)
-            }
-            if (decoded?.UserInfo) {
-                req.UserInfo = {
-                    ...decoded.UserInfo
-                }
-                return next()
-            }
-        }
-    )
-}
-
-//Verificacion con req.body
 export const verifyRefreshJWT = (req, res, next) => {
 
     const { refreshToken } = req.body

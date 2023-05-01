@@ -1,9 +1,9 @@
 import axios from "axios"
+import jwt from 'jsonwebtoken'
 
 //Anteriormente se ha validado la informacion con un middleware req.UserInfo
 export const validate_access = async (req,res) => {
-    const { role } = req.body
-    const { pk_id_user } = req.UserInfo
+    const { role, pk_id_user } = req.body
 
     try {
         const qsRole  = await axios({
@@ -29,4 +29,23 @@ export const validate_access = async (req,res) => {
     } catch (error) {
         res.json(error)
     }
+}
+
+//Verificacion con req.body
+export const verifyJWT = (req, res) => {
+    
+    const { token } = req.body
+
+    jwt.verify(
+        token,
+        process.env.ACCESS_TOKEN,
+        (err, decoded) => {
+            if (err) {
+                return res.json(false).status(403)
+            }
+            if (decoded?.UserInfo) {
+                return res.json({...decoded.UserInfo}).status(200)
+            }
+        }
+    )
 }

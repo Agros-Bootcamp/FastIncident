@@ -4,7 +4,7 @@ import { internalVerifyJWT, validate_admin } from "../Middleware/verifyJWT.js";
 
 export const registerRoute = Router()
 
-registerRoute.post('/register', internalVerifyJWT, validate_admin, registerUser)
+registerRoute.post('/register', registerUser)
 
 //Ruta de registro para usuarios solo valida para los administradores
 

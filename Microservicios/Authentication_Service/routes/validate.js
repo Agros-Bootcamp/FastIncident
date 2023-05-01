@@ -1,12 +1,13 @@
 import {Router} from 'express'
-import { verifyJWT, verifyRefreshJWT } from '../Middleware/verifyJWT.js'
-import { validate_access } from '../controllers/validateController.js'
+import { verifyRefreshJWT } from '../Middleware/verifyJWT.js'
+import { validate_access, verifyJWT } from '../controllers/validateController.js'
 import { refreshTokenController } from '../controllers/loginController.js'
 
 export const protectedRoutes = Router()
 
-protectedRoutes.post('/validate', verifyJWT, validate_access)
+protectedRoutes.post('/validate', validate_access)
                .post('/refresh', verifyRefreshJWT, refreshTokenController)
+               .post('/validateJWT', verifyJWT)
 
 //Ruta Validate:
 //Recibe un objeto en el req.body que contiene el token a ser validado y el rol que necesita la ruta para compararlo
