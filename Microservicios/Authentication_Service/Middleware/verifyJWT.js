@@ -13,7 +13,7 @@ export const verifyRefreshJWT = (req, res, next) => {
         refreshToken,
         process.env.REFRESH_TOKEN,
         (err, decoded) => {
-            if (err) return res.json('No hay acceso').status(403)
+            if (err) return res.json(false).status(403)
             else {
                 req.UserInfo = {
                 ...decoded

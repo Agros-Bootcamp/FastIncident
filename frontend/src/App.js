@@ -12,6 +12,7 @@ import RegisterTasks from "./pages/private/Admin/RegisterTasks"
 import RegisterIncidents from "./pages/private/Admin/RegisterIncidents"
 import { NavBar } from "./components/NavBar"
 import { ViewTasks } from "./pages/private/ViewTasks"
+import { ViewFKTasks } from "./pages/private/Admin/ViewFKTasks"
 //comentario 12
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
           <Route path="/Home" element={<Homepage />} />
 
           <Route path="/Tasks" element={<ViewTasks />} />
+
+          <Route path="/MyTasks" element={<ViewFKTasks />} />
 
           <Route element={<AdminPrivateRoute />} >
 

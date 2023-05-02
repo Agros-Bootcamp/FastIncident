@@ -7,7 +7,7 @@ import { setTokens, logOut } from "../authSlice";
 //Con la libreria de AXIOS creamos una funcion para realizar peticion POST al endpoint que regenera los tokens de autentificacion
 export const fetchUpdateTokens = async (token) => {
     try {
-        const response = await axios.post('http://localhost:4000/refreshToken/', token)
+        const response = await axios.post('http://localhost:4007/refresh/', token)
         if(response) return response
     } catch (error) {
         console.log(error)
@@ -18,7 +18,7 @@ export const fetchUpdateTokens = async (token) => {
 //Creamos una plantilla base para las peticiones hacia el servidor
 const baseQuery = fetchBaseQuery({
     //Establecemos la URL a la cual se realizaran las peticiones
-    baseUrl: 'http://localhost:4002/',
+    baseUrl: 'http://localhost:4007/',
     //Usamos prepareHeaders para que los headers de las peticiones puedan ser modificados dinamicamente segun existan los tokens de acceso
     prepareHeaders: (headers, { getState }) => {
         //Con getState solicitamos el estado del token de acceso
@@ -40,7 +40,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
 
     //En caso exista el error de prohibicion, entonces el token de acceso caduco
-    if ( result?.error?.originalStatus === 403 || result?.data?.status_code === 403 ){
+    if ( result?.error?.originalStatus === 403 || result.error?.status === 403 ){
 
         //Solicitamos de nuestros estados la informacion del token de refresco
         const {refreshToken} = api.getState().auth

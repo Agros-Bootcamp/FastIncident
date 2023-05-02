@@ -16,10 +16,10 @@ export const verifyJWT = async (req, res, next) => {
         })
 
         if (result.data) {
-            req.UserInfo = result.data
-            return res.json(req.UserInfo)
+            req.body.pk_id_user = result.data.pk_id_user
+            return next()
         } else {
-            return res.json('Credenciales expiradas')
+            return res.status(403).json('Credenciales expiradas')
         }
 
     } catch (error) {

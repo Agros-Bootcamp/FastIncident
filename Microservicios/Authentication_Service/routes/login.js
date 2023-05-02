@@ -3,7 +3,7 @@ import { authTokens } from "../controllers/loginController.js";
 
 export const loginRouter = Router()
 
-loginRouter.all('/login', authTokens)
+loginRouter.post('/login', authTokens)
 
 //Recibe un objeto de la siguiente forma:
 // req.body : { email_user: email, password_user: password }

@@ -44,7 +44,7 @@ export const createJWT = (data) => {
             "title_rol_user": data.title_rol_user
         }
     }, process.env.ACCESS_TOKEN,
-        { expiresIn: '25m' })
+        { expiresIn: '10s' })
 
     const refreshToken = jwt.sign(
         { 'pk_id_user': data.pk_id_user },
@@ -164,7 +164,7 @@ export const refreshTokenController = async (req, res) => {
         }
 
     } catch (error) {
-        res.json(error)
+        res.json(error).status(403)
     }
 
 }
