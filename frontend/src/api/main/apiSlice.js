@@ -17,8 +17,6 @@ export const fetchUpdateTokens = async (token) => {
 
 //Creamos una plantilla base para las peticiones hacia el servidor
 const baseQuery = fetchBaseQuery({
-    //Establecemos la URL a la cual se realizaran las peticiones
-    baseUrl: 'http://localhost:4007/',
     //Usamos prepareHeaders para que los headers de las peticiones puedan ser modificados dinamicamente segun existan los tokens de acceso
     prepareHeaders: (headers, { getState }) => {
         //Con getState solicitamos el estado del token de acceso

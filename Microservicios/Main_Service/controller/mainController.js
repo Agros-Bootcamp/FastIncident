@@ -166,7 +166,7 @@ export const mainController = async (req, res) => {
             if (newCredentials.data) {
                 res.json(newCredentials.data)
             } else {
-                res.status(403)
+                res.sendStatus(403)
             }
 
             break
