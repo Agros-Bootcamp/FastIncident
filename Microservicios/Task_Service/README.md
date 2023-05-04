@@ -40,17 +40,17 @@ Los tipos de accion solo estan disponibles para los metodos GET
 
 ````
 Ejemplo
-/incidents/all/
+/tasks/all/
 ````
 ##### byPK: Se envia un objeto con un apartado con nombre segun este nombrada la instancia en la base de datos
 
 ````
     {
-        "pk_id_incident": "UUID del incidente"
+        "pk_id_task": "UUID del incidente"
     }
 ````
 Ejemplo
-/incidents/byPK/pk_id_incident
+/incidents/byPK/pk_id_task
 ##### allByFk: Devuelve todos los objetos que estan relacionados por ID foranea, para ello se debe hacer una consulta con la siguiente url
 
 ````
@@ -60,7 +60,7 @@ Ejemplo
 }
 ````
 Ejemplo
-/incidents/allByFk/fk_id_task/fk
+/incidents/allByFk/fk_id_user/fk
 
 ## Para las operaciones Create, se debe enviar un objeto segun cual sea la instancia de la base de datos
 
